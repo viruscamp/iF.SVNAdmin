@@ -57,11 +57,24 @@ $repositoryList = array();
 try {
 	// Repository parent locations.
 	$repositoryParentList = $engine->getRepositoryViewProvider()->getRepositoryParents();
+
+	$accessPathList = $appEngine->getAccessPathViewProvider()->getPaths();
 	
 	// Repositories of all locations.
 	foreach ($repositoryParentList as $rp) {
 		$repositoryList[$rp->identifier] = $engine->getRepositoryViewProvider()->getRepositoriesOfParent($rp);
 		usort($repositoryList[$rp->identifier], array('\svnadmin\core\entities\Repository', 'compare'));
+		
+		foreach ($repositoryList[$rp->identifier] as $r) {
+			$dirPath = $r->getEncodedName().':/';
+			$val->hasAccessPath = false;
+			foreach ($accessPathList as &$accessPath) {
+				if ($accessPath->getPath() == $dirPath) {
+					$r->hasAccessPath = true;
+					break;
+				}
+			}
+		}
 	}
 	
 	// Show options column?

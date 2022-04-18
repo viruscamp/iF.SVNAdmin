@@ -1,11 +1,30 @@
 <?php GlobalHeader(); ?>
 
+<?php
+$redirectTo = GetValue("RedirectTo");
+if ($redirectTo) {
+?>
+	<div class="top-message top-message-info">
+		<div class="top-message-header">
+			<h3><?php Translate("Message list"); ?></h3>
+		</div>
+		<div class="top-message-content">
+			<ul>
+				<li>Will redirect</li>
+			</ul>
+		</div>
+	</div>
+	<script>setTimeout(function() { window.location.href='accesspathview.php?accesspath=<?php print($redirectTo); ?>'; }, 2000);</script>
+<?php
+}
+?>
+
 <h1><?php Translate("Create access-path"); ?></h1>
 <p class="hdesc"><?php Translate("Create a new access-path to grant access to users and groups."); ?></p>
 
 <div>
 	<form method="POST" action="accesspathcreate.php">
-
+		<input type="hidden" name="redirect" value="<?php print($_REQUEST["redirect"]) ?>">
 		<div class="form-field">
 			<label for="path"><?php Translate("Path"); ?>:</label>
 			<input type="text" name="path" id="path" class="lineedit" value="<?php PrintStringValue("DefaultAccessPath"); ?>">

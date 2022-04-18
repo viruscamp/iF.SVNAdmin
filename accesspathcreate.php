@@ -27,6 +27,9 @@ $create = check_request_var('create');
 if( $create )
 {
 	$appEngine->handleAction('create_accesspath');
+	if ($_REQUEST["redirect"] && !HasAppExceptions() && HasAppMessages()) {
+		SetValue("RedirectTo", rawurldecode(get_request_var('path')));
+	}
 }
 
 // HTTP request parameters.

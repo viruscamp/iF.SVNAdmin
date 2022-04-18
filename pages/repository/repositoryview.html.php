@@ -50,7 +50,11 @@
   <tr>
     <td>
       <?php if (IsProviderActive(PROVIDER_ACCESSPATH_EDIT) && HasAccess(ACL_MOD_ACCESSPATH, ACL_ACTION_ADD)) { ?>
-	    <a href="accesspathcreate.php?pi=<?php print(GetValue("Repository")->getEncodedParentIdentifier()); ?>&amp;r=<?php print(GetValue("Repository")->getEncodedName()); ?>&amp;p=<?php print($item->getEncodedRelativePath()); ?>"><img src="templates/icons/addpath.png" alt="-" title="<?php Translate("Add access path"); ?>"></a>
+        <?php if ($item->hasAccessPath) { ?>
+          <a href="accesspathview.php?accesspath=<?php print(GetValue("Repository")->getEncodedName().':/'.$item->getEncodedRelativePath()); ?>"><img src="templates/icons/accept.png" alt="-" title="<?php Translate("Set permissions for access path"); ?>"></a>
+        <?php } else { ?>
+          <a href="accesspathcreate.php?redirect=1&amp;pi=<?php print(GetValue("Repository")->getEncodedParentIdentifier()); ?>&amp;r=<?php print(GetValue("Repository")->getEncodedName()); ?>&amp;p=<?php print($item->getEncodedRelativePath()); ?>"><img src="templates/icons/addpath.png" alt="-" title="<?php Translate("Add access path"); ?>"></a>
+        <?php } ?>
       <?php } ?>
     </td>
     <td>

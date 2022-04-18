@@ -65,9 +65,15 @@
 			<tr>
 				<td>
 					<?php if (IsProviderActive(PROVIDER_ACCESSPATH_EDIT) && HasAccess(ACL_MOD_ACCESSPATH, ACL_ACTION_ADD)) : ?>
-						<a href="accesspathcreate.php?pi=<?php print($r->getEncodedParentIdentifier()); ?>&amp;r=<?php print($r->getEncodedName()); ?>">
+					<?php if ($r->hasAccessPath) { ?>
+						<a href="accesspathview.php?accesspath=<?php print($r->getEncodedName().':/'); ?>">
+							<img src="templates/icons/accept.png" alt="-" title="<?php Translate("Set permissions for access path"); ?>">
+						</a>
+					<?php } else { ?>
+						<a href="accesspathcreate.php?redirect=1&amp;pi=<?php print($r->getEncodedParentIdentifier()); ?>&amp;r=<?php print($r->getEncodedName()); ?>">
 							<img src="templates/icons/addpath.png" alt="<?php Translate("Add access path"); ?>" title="<?php Translate("Add access path"); ?>">
 						</a>
+					<?php } ?>
 					<?php endif; ?>
 				</td>
 				<td>

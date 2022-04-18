@@ -54,6 +54,8 @@ try {
 	// Get the files of the selected repository path.
 	$repoPathList = $engine->getRepositoryViewProvider()->listPath($oR, $varPath);
 
+	$accessPathList = $appEngine->getAccessPathViewProvider()->getPaths();
+
 	// Web-Link - Directory Listing
 	$apacheWebLink = $engine->getConfig()->getValue("GUI", "ApacheDirectoryListing");
 	$customWebLink = $engine->getConfig()->getValue("GUI", "CustomDirectoryListing");
@@ -64,7 +66,7 @@ try {
 	$isRepositoryRoot = false;
 	if ($varPath == NULL || $varPath == "/")
 	{
-	  $isRepositoryRoot = true;
+		$isRepositoryRoot = true;
 	}
 
 	// Create the list of directory items.
@@ -72,6 +74,14 @@ try {
 	$itemList = array();
 	foreach ($repoPathList as &$val)
 	{
+		$dirPath = $oR->getName().':/'.$val->getRelativePath();
+		$val->hasAccessPath = false;
+		foreach ($accessPathList as &$accessPath) {
+			if ($accessPath->getPath() == $dirPath) {
+				$val->hasAccessPath = true;
+				break;
+			}
+		}
 		// Add weblink property.
 		if ($hasApacheWebLink || $hasCustomWebLink)
 		{
@@ -95,15 +105,15 @@ try {
 	$backLinkPath = "/";
 	if(empty($varPath))
 	{
-	  $varPath = "";
+		$varPath = "";
 	}
 	else
 	{
-	  $pos = strrpos($varPath, "/");
-	  if ($pos !== false && $pos > 0)
-	  {
-	    $backLinkPath = substr($varPath, 0, $pos);
-	  }
+		$pos = strrpos($varPath, "/");
+		if ($pos !== false && $pos > 0)
+		{
+			$backLinkPath = substr($varPath, 0, $pos);
+		}
 	}
 
 	SetValue("ApacheWebLink", $hasApacheWebLink);
