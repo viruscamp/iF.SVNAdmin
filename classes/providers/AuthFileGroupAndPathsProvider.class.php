@@ -471,6 +471,13 @@ class AuthFileGroupAndPathProvider implements	\svnadmin\core\interfaces\IGroupVi
 		return $this->m_authfile->removeRepositoryPath( $objAccessPath->path );
 	}
 
+	public function deleteAccessPathIfEmpty($objAccessPath) {
+		if ($this->m_authfile->repositoryPathExists($objAccessPath->path) &&
+			count($this->m_authfile->membersOfRepository($objAccessPath->path)) == 0) {
+			$this->m_authfile->removeRepositoryPath( $objAccessPath->path );
+		}
+	}
+
 	/**
 	 * (non-PHPdoc)
 	 * @see svnadmin\core\interfaces.IPathsEditProvider::createAccessPath()
@@ -478,6 +485,12 @@ class AuthFileGroupAndPathProvider implements	\svnadmin\core\interfaces\IGroupVi
 	public function createAccessPath($objAccessPath)
 	{
 		return $this->m_authfile->addRepositoryPath( $objAccessPath->path );
+	}
+
+	public function createAccessPathIfNotExists($objAccessPath) {
+		if (!$this->m_authfile->repositoryPathExists($objAccessPath->path)) {
+			$this->m_authfile->addRepositoryPath($objAccessPath->path);
+		}
 	}
 
 	/**

@@ -14,7 +14,7 @@ if ($redirectTo) {
 			</ul>
 		</div>
 	</div>
-	<script>setTimeout(function() { window.location.href='accesspathview.php?accesspath=<?php print($redirectTo); ?>'; }, 2000);</script>
+	<script>setTimeout(function() { window.location.href='accesspathview.php?accesspath=<?php print($redirectTo); ?>'; }, 0);</script>
 <?php
 }
 ?>

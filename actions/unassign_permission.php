@@ -109,6 +109,8 @@ else {
 					$engine->addException($e);
 				}
 			}
+
+			$appEngine->getAccessPathEditProvider()->deleteAccessPathIfEmpty($oAP);
 		}
 		$engine->getAccessPathEditProvider()->save();
 	}

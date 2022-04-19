@@ -52,6 +52,10 @@ else
 	      }
 	    }
 
+		if ( $selusersLen > 0 || $selgroupsLen > 0 ) {
+			$b = $appEngine->getAccessPathEditProvider()->createAccessPathIfNotExists($oAP);
+		}
+
 		// Iterate selected_users.
 		for( $iu=0; $iu<$selusersLen; $iu++ )
     	{
