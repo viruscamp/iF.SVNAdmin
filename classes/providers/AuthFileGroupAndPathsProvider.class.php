@@ -33,7 +33,12 @@ class AuthFileGroupAndPathProvider implements	\svnadmin\core\interfaces\IGroupVi
 	/**
 	 * @var bool
 	 */
-	private $m_init_done = false;
+	protected $m_init_done = false;
+
+	/**
+	 * @var string
+	 */
+	protected $m_path = null;
 
 	/**
 	 * The object to manage the SVNAuthFile.
@@ -67,13 +72,17 @@ class AuthFileGroupAndPathProvider implements	\svnadmin\core\interfaces\IGroupVi
 	 * (non-PHPdoc)
 	 * @see svnadmin\core\interfaces.IProvider::init()
 	 */
-	public function init()
+	public function init($path = null)
 	{
 		global $appEngine;
 		if( !$this->m_init_done )
 		{
+			if ($path == null) {
+				$path = $appEngine->getConfig()->getValue("Subversion", "SVNAuthFile");
+			}
 			$this->m_init_done = true;
-			$this->m_authfile = new \IF_SVNAuthFileC($appEngine->getConfig()->getValue("Subversion", "SVNAuthFile"));
+			$this->m_path = $path;
+			$this->m_authfile = new \IF_SVNAuthFileC($path);
 		}
 		return true;
 	}
@@ -84,8 +93,7 @@ class AuthFileGroupAndPathProvider implements	\svnadmin\core\interfaces\IGroupVi
 	 */
 	public function reset()
 	{
-		$E = \svnadmin\core\Engine::getInstance();
-		$this->m_authfile = new \IF_SVNAuthFileC($E->getConfig()->getValue("Subversion", "SVNAuthFile"));
+		$this->m_authfile = new \IF_SVNAuthFileC($this->m_path);
 	}
 
 	/**
@@ -95,6 +103,11 @@ class AuthFileGroupAndPathProvider implements	\svnadmin\core\interfaces\IGroupVi
 	public function save()
 	{
 		return $this->m_authfile->save();
+	}
+	
+	public function isSplitByRepository()
+	{
+		return false;
 	}
 
 	/**

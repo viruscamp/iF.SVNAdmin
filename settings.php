@@ -470,6 +470,11 @@ $svnAuthFileEx = $cfgTpl->getValue("Subversion","SVNAuthFile");
 SetValue("SVNAuthFile", $svnAuthFile);
 SetValue("SVNAuthFileEx", $svnAuthFileEx);
 
+// AuthzVisualSVNSubversionReposRelativeAccessFile
+$authzVisualSVNSubversionReposRelativeAccessFile = $cfgEngine->getValue("VisualSVN","AuthzVisualSVNSubversionReposRelativeAccessFile");
+SetValue("AuthzVisualSVNSubversionReposRelativeAccessFile", $authzVisualSVNSubversionReposRelativeAccessFile);
+SetValue("AuthzVisualSVNSubversionGroupsFileEx", "groups.conf");
+
 // UserViewProviderType
 $userViewProviderTypes = array(/*"off",*/ "passwd", "digest", "ldap");
 array_unshift($userViewProviderTypes, $cfgEngine->getValue("Engine:Providers","UserViewProviderType"));
@@ -500,6 +505,16 @@ SetValue("repositoryViewProviderTypes", $repositoryViewProviderTypes);
 $repositoryEditProviderTypes = array("off", "svnclient");
 array_unshift($repositoryEditProviderTypes, $cfgEngine->getValue("Engine:Providers","RepositoryEditProviderType"));
 SetValue("repositoryEditProviderTypes", $repositoryEditProviderTypes);
+
+// AccessPathViewProviderType
+$accessPathViewProviderTypes = array("off", "svnauthfile", "visualsvn");
+array_unshift($accessPathViewProviderTypes, $cfgEngine->getValue("Engine:Providers","AccessPathViewProviderType"));
+SetValue("accessPathViewProviderTypes", $accessPathViewProviderTypes);
+
+// AccessPathEditProviderType
+$accessPathEditProviderTypes = array("off", "svnauthfile", "visualsvn");
+array_unshift($accessPathEditProviderTypes, $cfgEngine->getValue("Engine:Providers","AccessPathEditProviderType"));
+SetValue("accessPathEditProviderTypes", $accessPathEditProviderTypes);
 
 // Passwd file.
 $svnUserFile = $cfgEngine->getValue("Users:passwd","SVNUserFile");

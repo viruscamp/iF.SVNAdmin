@@ -75,11 +75,38 @@ $(document).ready(function(){
   </thead>
   <tbody>
     <tr>
-      <td><?php Translate("Subversion authorization file"); ?><br><small><b><?php Translate("Example"); ?>:</b> <?php PrintStringValue("SVNAuthFileEx"); ?></small></td>
+      <td id="td_desc_authz"><?php Translate("Subversion authorization file"); ?><br><small><b><?php Translate("Example"); ?>:</b> <?php PrintStringValue("SVNAuthFileEx"); ?></small></td>
+      <td id="td_desc_authz_visualsvn"><?php Translate("VisualSVN authorization group file"); ?><br><small><b><?php Translate("Example"); ?>:</b> <?php PrintStringValue("AuthzVisualSVNSubversionGroupsFileEx"); ?></small></td>
       <td>
         <input type="text" name="SVNAuthFile" id="SVNAuthFile" value="<?php PrintStringValue("SVNAuthFile"); ?>">
         <input type="button" id="SVNAuthFileTest" value="<?php Translate("Test"); ?>">
         <span id="SVNAuthFileTestResult" style="display:none;"></span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+
+<!-- VisualSVN -->
+<table class="datatable settings" id="tbl_visualsvn">
+  <colgroup>
+    <col width="50%">
+    <col width="50%">
+  </colgroup>
+  <thead>
+    <tr>
+      <th colspan="2"><?php Translate("VisualSVN authorization"); ?></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><?php Translate("VisualSVN authorization path relative to repository"); ?><br><small><b><?php Translate("Example"); ?>:</b> <?php PrintStringValue("AuthzVisualSVNSubversionReposRelativeAccessFile"); ?></small></td>
+      <td>
+        <input type="text" name="AuthzVisualSVNSubversionReposRelativeAccessFile" id="AuthzVisualSVNSubversionReposRelativeAccessFile" value="<?php PrintStringValue("AuthzVisualSVNSubversionReposRelativeAccessFile"); ?>">
+        <!--
+        <input type="button" id="AuthzVisualSVNSubversionReposRelativeAccessFileTest" value="<?php Translate("Test"); ?>">
+        <span id="AuthzVisualSVNSubversionReposRelativeAccessFileTestResult" style="display:none;"></span>
+        -->
       </td>
     </tr>
   </tbody>
@@ -153,6 +180,26 @@ $(document).ready(function(){
       <td>
         <select name="RepositoryEditProviderType" id="RepositoryEditProviderType">
           <?php foreach(GetArrayValue("repositoryEditProviderTypes") as $t): ?>
+          <option><?php print($t); ?></option>
+          <?php endforeach; ?>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>Access-Path view provider type:</td>
+      <td>
+        <select name="AccessPathViewProviderType" id="AccessPathViewProviderType">
+          <?php foreach(GetArrayValue("accessPathViewProviderTypes") as $t): ?>
+          <option><?php print($t); ?></option>
+          <?php endforeach; ?>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>Access-Path edit provider type:</td>
+      <td>
+        <select name="AccessPathEditProviderType" id="AccessPathEditProviderType">
+          <?php foreach(GetArrayValue("accessPathEditProviderTypes") as $t): ?>
           <option><?php print($t); ?></option>
           <?php endforeach; ?>
         </select>

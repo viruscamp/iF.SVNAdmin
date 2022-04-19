@@ -36,5 +36,7 @@ interface IPathsEditProvider extends IEditProvider
 	public function assignUserToAccessPath($objUser, $objAccessPath, $objPermission);
 	public function removeUserFromAccessPath($objUser, $objAccessPath);
 	public function removeUserFromAllAccessPaths($objUser);
+
+	public function isSplitByRepository();
 }
 ?>

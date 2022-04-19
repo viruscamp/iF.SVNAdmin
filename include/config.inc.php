@@ -271,6 +271,12 @@ if ($cfg->getValue("Engine:Providers", "AccessPathViewProviderType") == "svnauth
   $pathsView = \svnadmin\providers\AuthFileGroupAndPathProvider::getInstance();
   $appEngine->setAccessPathViewProvider( $pathsView );
 }
+if ($cfg->getValue("Engine:Providers", "AccessPathViewProviderType") == "visualsvn")
+{
+  include_once( "./classes/providers/VisualSvnAuthPathsProvider.class.php" );
+  $pathsView = \svnadmin\providers\VisualSvnAuthPathsProvider::getInstance();
+  $appEngine->setAccessPathViewProvider( $pathsView );
+}
 
 /**
  * Access-Path edit provider.
@@ -279,6 +285,12 @@ if ($cfg->getValue("Engine:Providers", "AccessPathEditProviderType") == "svnauth
 {
   include_once( "./classes/providers/AuthFileGroupAndPathsProvider.class.php" );
   $pathsEdit = \svnadmin\providers\AuthFileGroupAndPathProvider::getInstance();
+  $appEngine->setAccessPathEditProvider( $pathsEdit );
+}
+if ($cfg->getValue("Engine:Providers", "AccessPathEditProviderType") == "visualsvn")
+{
+  include_once( "./classes/providers/VisualSvnAuthPathsProvider.class.php" );
+  $pathsEdit = \svnadmin\providers\VisualSvnAuthPathsProvider::getInstance();
   $appEngine->setAccessPathEditProvider( $pathsEdit );
 }
 

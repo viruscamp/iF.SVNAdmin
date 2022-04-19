@@ -386,6 +386,34 @@ function updateSettingsSelection()
     $("#tbl_subversion").show(speed);
     $("#RepositoryEditProviderType").removeAttr("disabled");
   }
+
+  // Access-Path view
+  if ($("#AccessPathViewProviderType").val() == "off")
+  {
+    $("#tbl_visualsvn").hide(speed);
+    $("#td_desc_authz").show();
+    $("#td_desc_authz_visualsvn").hide();
+    $("#AccessPathEditProviderType").val("off");
+    $("#AccessPathEditProviderType").attr("disabled", "disabled");
+  }
+  else if ($("#AccessPathViewProviderType").val() == "svnauthfile")
+  {
+    $("#tbl_visualsvn").hide(speed);
+    $("#td_desc_authz").show();
+    $("#td_desc_authz_visualsvn").hide();
+    if($("#AccessPathEditProviderType").val() != "off")
+      $("#AccessPathEditProviderType").val("svnauthfile");
+    $("#AccessPathEditProviderType").removeAttr("disabled");
+  }
+  else if ($("#AccessPathViewProviderType").val() == "visualsvn")
+  {
+    $("#tbl_visualsvn").show(speed);
+    $("#td_desc_authz").hide();
+    $("#td_desc_authz_visualsvn").show();
+    if($("#AccessPathEditProviderType").val() != "off")
+      $("#AccessPathEditProviderType").val("visualsvn");
+    $("#AccessPathEditProviderType").removeAttr("disabled");
+  }
 }
 
 /**
