@@ -54,7 +54,11 @@ try {
 	// Get the files of the selected repository path.
 	$repoPathList = $engine->getRepositoryViewProvider()->listPath($oR, $varPath);
 
-	$accessPathList = $appEngine->getAccessPathViewProvider()->getPaths();
+	$accessPathViewProvider = $engine->getAccessPathViewProvider();
+	if ($accessPathViewProvider->hasChildren()) {
+		$accessPathViewProvider = $accessPathViewProvider->getChild($varRepo);
+	}
+	$accessPathList = $accessPathViewProvider->getPaths();
 
 	// Web-Link - Directory Listing
 	$apacheWebLink = $engine->getConfig()->getValue("GUI", "ApacheDirectoryListing");

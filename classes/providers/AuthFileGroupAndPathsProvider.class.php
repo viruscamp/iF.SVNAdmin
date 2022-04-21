@@ -19,14 +19,14 @@
  */
 namespace svnadmin\providers;
 
-class AuthFileGroupAndPathProvider implements	\svnadmin\core\interfaces\IGroupViewProvider,
+class AuthFileGroupAndPathsProvider implements	\svnadmin\core\interfaces\IGroupViewProvider,
 												\svnadmin\core\interfaces\IGroupEditProvider,
 												\svnadmin\core\interfaces\IPathsViewProvider,
 												\svnadmin\core\interfaces\IPathsEditProvider
 {
 	/**
 	 * The singelton instance of this class.
-	 * @var \svnadmin\providers\AuthFileGroupAndPathProvider
+	 * @var \svnadmin\providers\AuthFileGroupAndPathsProvider
 	 */
 	private static $m_instance = NULL;
 
@@ -57,13 +57,13 @@ class AuthFileGroupAndPathProvider implements	\svnadmin\core\interfaces\IGroupVi
 	/**
 	 * Gets the singelton instance of this object.
 	 *
-	 * @return \svnadmin\providers\AuthFileGroupAndPathProvider
+	 * @return \svnadmin\providers\AuthFileGroupAndPathsProvider
 	 */
 	public static function getInstance()
 	{
 		if (self::$m_instance == null)
 		{
-			self::$m_instance = new AuthFileGroupAndPathProvider();
+			self::$m_instance = new AuthFileGroupAndPathsProvider();
 		}
 		return self::$m_instance;
 	}
@@ -105,7 +105,7 @@ class AuthFileGroupAndPathProvider implements	\svnadmin\core\interfaces\IGroupVi
 		return $this->m_authfile->save();
 	}
 	
-	public function isSplitByRepository()
+	public function hasChildren()
 	{
 		return false;
 	}

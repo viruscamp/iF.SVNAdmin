@@ -66,11 +66,12 @@ else {
 			}
         	$appEngine->addMessage(tr("The repository %0 has been deleted.", array($oR->name)));
 
+			$accessPathViewProvider = $appEngine->getAccessPathViewProvider()
         	// Remove Access-Paths of the repository.
-        	if ($remove_accesspaths)
+        	if ($remove_accesspaths && !$accessPathViewProvider.hasChildren())
         	{
         		try {
-					$apList = $appEngine->getAccessPathViewProvider()->getPathsOfRepository($oR);
+					$apList = $accessPathViewProvider->getPathsOfRepository($oR);
 					foreach ($apList as $ap)
 					{
 						$appEngine->getAccessPathEditProvider()->deleteAccessPath($ap);

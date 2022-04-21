@@ -83,7 +83,7 @@ class CachedLdapUserViewProvider
 	{
 		if (!$this->_init_done) {
 			$this->_init_done = true;
-			\svnadmin\providers\AuthFileGroupAndPathProvider::getInstance()->init();
+			\svnadmin\providers\AuthFileGroupAndPathsProvider::getInstance()->init();
 		}
 		return parent::init();
 	}
@@ -162,7 +162,7 @@ class CachedLdapUserViewProvider
 	 */
 	public function getGroups()
 	{
-		return \svnadmin\providers\AuthFileGroupAndPathProvider::getInstance()->getGroups();
+		return \svnadmin\providers\AuthFileGroupAndPathsProvider::getInstance()->getGroups();
 	}
 
 	/**
@@ -171,7 +171,7 @@ class CachedLdapUserViewProvider
 	 */
 	public function groupExists($objGroup)
 	{
-		return \svnadmin\providers\AuthFileGroupAndPathProvider::getInstance()->groupExists($objGroup);
+		return \svnadmin\providers\AuthFileGroupAndPathsProvider::getInstance()->groupExists($objGroup);
 	}
 
 	/**
@@ -180,7 +180,7 @@ class CachedLdapUserViewProvider
 	 */
 	public function getGroupsOfUser($objUser)
 	{
-		return \svnadmin\providers\AuthFileGroupAndPathProvider::getInstance()->getGroupsOfUser($objUser);
+		return \svnadmin\providers\AuthFileGroupAndPathsProvider::getInstance()->getGroupsOfUser($objUser);
 	}
 
 	/**
@@ -189,7 +189,7 @@ class CachedLdapUserViewProvider
 	 */
 	public function getUsersOfGroup($objGroup)
 	{
-		return \svnadmin\providers\AuthFileGroupAndPathProvider::getInstance()->getUsersOfGroup($objGroup);
+		return \svnadmin\providers\AuthFileGroupAndPathsProvider::getInstance()->getUsersOfGroup($objGroup);
 	}
 
 	/**
@@ -198,6 +198,6 @@ class CachedLdapUserViewProvider
 	 */
 	public function isUserInGroup($objUser, $objGroup)
 	{
-		return \svnadmin\providers\AuthFileGroupAndPathProvider::getInstance()->isUserInGroup($objUser, $objGroup);
+		return \svnadmin\providers\AuthFileGroupAndPathsProvider::getInstance()->isUserInGroup($objUser, $objGroup);
 	}
 }

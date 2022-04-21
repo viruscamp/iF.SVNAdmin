@@ -40,8 +40,12 @@ $accesspath = rawurldecode( $accesspathEnc );
 $o = new \svnadmin\core\entities\AccessPath;
 $o->path = $accesspath;
 
-$users = $appEngine->getAccessPathViewProvider()->getUsersOfPath($o);
-$groups = $appEngine->getAccessPathViewProvider()->getGroupsOfPath($o);
+$accessPathViewProvider = $appEngine->getAccessPathViewProvider();
+if ($accessPathViewProvider->hasChildren()) {
+	$accessPathViewProvider = $accessPathViewProvider->getChildFromAccessPath($accesspath);
+}
+$users = $accessPathViewProvider->getUsersOfPath($o);
+$groups = $accessPathViewProvider->getGroupsOfPath($o);
 
 // Data to assign new user permissions.
 // Data to assign new group permissions.

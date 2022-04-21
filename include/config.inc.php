@@ -229,7 +229,7 @@ if ($cfg->getValue("Engine:Providers", "UserEditProviderType") == "digest")
 if ($cfg->getValue("Engine:Providers", "GroupViewProviderType") == "svnauthfile")
 {
   include_once( "./classes/providers/AuthFileGroupAndPathsProvider.class.php" );
-  $groupView = \svnadmin\providers\AuthFileGroupAndPathProvider::getInstance();
+  $groupView = \svnadmin\providers\AuthFileGroupAndPathsProvider::getInstance();
   $appEngine->setGroupViewProvider( $groupView );
 }
 elseif($cfg->getValue("Engine:Providers", "GroupViewProviderType") == "ldap" && $cfg->getValue("Engine:Providers", "UserViewProviderType") == "ldap")
@@ -258,7 +258,7 @@ elseif($cfg->getValue("Engine:Providers", "GroupViewProviderType") == "ldap" && 
 if ($cfg->getValue("Engine:Providers", "GroupEditProviderType") == "svnauthfile" )
 {
   include_once( "./classes/providers/AuthFileGroupAndPathsProvider.class.php" );
-  $groupEdit = \svnadmin\providers\AuthFileGroupAndPathProvider::getInstance();
+  $groupEdit = \svnadmin\providers\AuthFileGroupAndPathsProvider::getInstance();
   $appEngine->setGroupEditProvider( $groupEdit );
 }
 
@@ -268,7 +268,7 @@ if ($cfg->getValue("Engine:Providers", "GroupEditProviderType") == "svnauthfile"
 if ($cfg->getValue("Engine:Providers", "AccessPathViewProviderType") == "svnauthfile")
 {
   include_once( "./classes/providers/AuthFileGroupAndPathsProvider.class.php" );
-  $pathsView = \svnadmin\providers\AuthFileGroupAndPathProvider::getInstance();
+  $pathsView = \svnadmin\providers\AuthFileGroupAndPathsProvider::getInstance();
   $appEngine->setAccessPathViewProvider( $pathsView );
 }
 if ($cfg->getValue("Engine:Providers", "AccessPathViewProviderType") == "visualsvn")
@@ -284,7 +284,7 @@ if ($cfg->getValue("Engine:Providers", "AccessPathViewProviderType") == "visuals
 if ($cfg->getValue("Engine:Providers", "AccessPathEditProviderType") == "svnauthfile")
 {
   include_once( "./classes/providers/AuthFileGroupAndPathsProvider.class.php" );
-  $pathsEdit = \svnadmin\providers\AuthFileGroupAndPathProvider::getInstance();
+  $pathsEdit = \svnadmin\providers\AuthFileGroupAndPathsProvider::getInstance();
   $appEngine->setAccessPathEditProvider( $pathsEdit );
 }
 if ($cfg->getValue("Engine:Providers", "AccessPathEditProviderType") == "visualsvn")

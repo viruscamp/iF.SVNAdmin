@@ -58,8 +58,13 @@ try {
 	// Repository parent locations.
 	$repositoryParentList = $engine->getRepositoryViewProvider()->getRepositoryParents();
 
-	$accessPathList = $appEngine->getAccessPathViewProvider()->getPaths();
-	
+	$accessPathViewProvider = $appEngine->getAccessPathViewProvider();
+	if ($accessPathViewProvider->hasChildren()) {
+		$accessPathList = array();
+	} else {
+		$accessPathList = $accessPathViewProvider->getPaths();
+	}
+
 	// Repositories of all locations.
 	foreach ($repositoryParentList as $rp) {
 		$repositoryList[$rp->identifier] = $engine->getRepositoryViewProvider()->getRepositoriesOfParent($rp);

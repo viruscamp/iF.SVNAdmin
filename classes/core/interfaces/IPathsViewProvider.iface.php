@@ -30,7 +30,7 @@ namespace svnadmin\core\interfaces
     public function getUsersOfPath( $objAccessPath );
     public function getGroupsOfPath( $objAccessPath );
 
-    public function isSplitByRepository();
+    public function hasChildren();
   }
 }
 ?>

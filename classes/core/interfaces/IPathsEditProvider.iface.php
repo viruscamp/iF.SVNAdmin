@@ -37,6 +37,6 @@ interface IPathsEditProvider extends IEditProvider
 	public function removeUserFromAccessPath($objUser, $objAccessPath);
 	public function removeUserFromAllAccessPaths($objUser);
 
-	public function isSplitByRepository();
+	public function hasChildren();
 }
 ?>
