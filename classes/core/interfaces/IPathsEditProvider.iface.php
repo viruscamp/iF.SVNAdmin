@@ -25,7 +25,6 @@ interface IPathsEditProvider extends IEditProvider
 	public function reset();
 
 	public function createAccessPath($objAccessPath);
-	public function createAccessPathIfNotExists($accessPath);
 	public function deleteAccessPath($objAccessPath);
 	public function deleteAccessPathIfEmpty($accessPath);
 

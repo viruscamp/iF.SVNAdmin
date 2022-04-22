@@ -502,14 +502,6 @@ class AuthFileGroupAndPathsProvider implements	\svnadmin\core\interfaces\IGroupV
 		return $this->m_authfile->addRepositoryPath( $objAccessPath->path );
 	}
 
-	public function createAccessPathIfNotExists($accessPath)
-	{
-		if (!$this->m_authfile->repositoryPathExists($accessPath)) {
-			return $this->m_authfile->addRepositoryPath($accessPath);
-		}
-		return true;
-	}
-
 	/**
 	 * (non-PHPdoc)
 	 * @see svnadmin\core\interfaces.IPathsEditProvider::removeGroupFromAllAccessPaths()

@@ -185,14 +185,6 @@ class VisualSvnAuthPathsProviderChild implements	\svnadmin\core\interfaces\IPath
 		});
 	}
 
-	public function createAccessPathIfNotExists($accessPath)
-	{
-		return $this->safeCall($accessPath, false, function($c, $path) {
-			$c->m_dirty = true;
-			return $c->m_auth_provider->createAccessPathIfNotExists($path);
-		});
-	}
-
 	public function deleteAccessPath($objAccessPath)
 	{
 		return $this->safeCall($objAccessPath->getPath(), false, function($c, $path) {
@@ -474,14 +466,6 @@ class VisualSvnAuthPathsProvider implements	\svnadmin\core\interfaces\IPathsView
 		return $this->callChild($objAccessPath->getPath(), function($c, $path) {
 			$c->m_dirty = true;
 			return $c->m_auth_provider->createAccessPath(makeAccessPath($path));
-		});
-	}
-
-	public function createAccessPathIfNotExists($accessPath)
-	{
-		return $this->callChild($accessPath, function($c, $path) {
-			$c->m_dirty = true;
-			return $c->m_auth_provider->createAccessPathIfNotExists($path);
 		});
 	}
 
