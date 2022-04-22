@@ -45,8 +45,16 @@ class IF_Config
 	 */
 	private function parse()
 	{
-		if (!file_exists($this->configFilePath) || !is_file($this->configFilePath)) {
-			throw new Exception('Config file does not exist. ' . $this->configFilePath);
+		if (!file_exists($this->configFilePath)) {
+			try {
+				touch($this->configFilePath);
+			} catch (Exception $ex) {
+				throw new Exception('Config file does not exist, and cannot be created. ' . $this->configFilePath);
+			}
+		}
+
+		if (!is_file($this->configFilePath)) {
+			throw new Exception('Config file is not a file. ' . $this->configFilePath);
 		}
 
 		$fh = fopen($this->configFilePath, 'r');
