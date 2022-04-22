@@ -96,6 +96,12 @@ class AuthFileGroupAndPathsProvider implements	\svnadmin\core\interfaces\IGroupV
 		$this->m_authfile = new \IF_SVNAuthFileC($this->m_path);
 	}
 
+	// for visualsvn '/^\/.*$/i'
+	public function setAccessPathPattern($pattern)
+	{
+		$this->m_authfile->setAccessPathPattern($pattern);
+	}
+
 	/**
 	 * (non-PHPdoc)
 	 * @see svnadmin\core\interfaces.IEditProvider::save()

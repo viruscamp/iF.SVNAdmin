@@ -66,6 +66,7 @@ class VisualSvnAuthPathsProviderChild implements	\svnadmin\core\interfaces\IPath
 		$relativePath = $appEngine->getConfig()->getValue("VisualSVN", "AuthzVisualSVNSubversionReposRelativeAccessFile");
 		$auth_provider = new AuthFileGroupAndPathsProvider();
 		$auth_provider->init($svnParentPath.'/'.$this->m_repo_name.'/conf/'.$relativePath);
+		$auth_provider->setAccessPathPattern('/^\/.*$/i');
 		$this->m_auth_provider = $auth_provider;
 		$this->m_dirty = false;
 		return true;
