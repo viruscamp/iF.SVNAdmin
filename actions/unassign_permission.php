@@ -110,7 +110,7 @@ else {
 				}
 			}
 
-			$appEngine->getAccessPathEditProvider()->deleteAccessPathIfEmpty($oAP);
+			$appEngine->getAccessPathEditProvider()->deleteAccessPathIfEmpty($oAP->getPath());
 		}
 		$engine->getAccessPathEditProvider()->save();
 	}

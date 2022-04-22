@@ -53,7 +53,7 @@ else
 	    }
 
 		if ( $selusersLen > 0 || $selgroupsLen > 0 ) {
-			$b = $appEngine->getAccessPathEditProvider()->createAccessPathIfNotExists($oAP);
+			$b = $appEngine->getAccessPathEditProvider()->createAccessPathIfNotExists($oAP->getPath());
 		}
 
 		// Iterate selected_users.

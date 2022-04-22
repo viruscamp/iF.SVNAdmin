@@ -33,12 +33,12 @@ class AuthFileGroupAndPathsProvider implements	\svnadmin\core\interfaces\IGroupV
 	/**
 	 * @var bool
 	 */
-	protected $m_init_done = false;
+	private $m_init_done = false;
 
 	/**
 	 * @var string
 	 */
-	protected $m_path = null;
+	private $m_path = null;
 
 	/**
 	 * The object to manage the SVNAuthFile.
@@ -484,11 +484,13 @@ class AuthFileGroupAndPathsProvider implements	\svnadmin\core\interfaces\IGroupV
 		return $this->m_authfile->removeRepositoryPath( $objAccessPath->path );
 	}
 
-	public function deleteAccessPathIfEmpty($objAccessPath) {
-		if ($this->m_authfile->repositoryPathExists($objAccessPath->path) &&
-			count($this->m_authfile->membersOfRepository($objAccessPath->path)) == 0) {
-			$this->m_authfile->removeRepositoryPath( $objAccessPath->path );
+	public function deleteAccessPathIfEmpty($accessPath)
+	{
+		if ($this->m_authfile->repositoryPathExists($accessPath) &&
+			count($this->m_authfile->membersOfRepository($accessPath)) == 0) {
+			return $this->m_authfile->removeRepositoryPath($accessPath);
 		}
+		return true;
 	}
 
 	/**
@@ -500,10 +502,12 @@ class AuthFileGroupAndPathsProvider implements	\svnadmin\core\interfaces\IGroupV
 		return $this->m_authfile->addRepositoryPath( $objAccessPath->path );
 	}
 
-	public function createAccessPathIfNotExists($objAccessPath) {
-		if (!$this->m_authfile->repositoryPathExists($objAccessPath->path)) {
-			$this->m_authfile->addRepositoryPath($objAccessPath->path);
+	public function createAccessPathIfNotExists($accessPath)
+	{
+		if (!$this->m_authfile->repositoryPathExists($accessPath)) {
+			return $this->m_authfile->addRepositoryPath($accessPath);
 		}
+		return true;
 	}
 
 	/**
