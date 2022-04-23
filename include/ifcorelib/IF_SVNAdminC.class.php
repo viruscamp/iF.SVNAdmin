@@ -66,8 +66,8 @@ class IF_SVNAdminC extends IF_SVNBaseC
 			throw new IF_SVNException('Empty path parameter for create() command.');
 		}
 
-		// Validate repository name.
-		$pattern = '/^([a-zA-Z0-9\x{4e00}-\x{9fa5}\_\-.]+)$/ui';
+		// Validate repository name. As I know in linux, php call exec in locale 'POSIX' as default, which cannot handle utf8.
+		$pattern = '/^([a-z0-9\_\-.]+)$/i';
 		$repo_name = basename($path);
 
 		if (!preg_match($pattern, $repo_name))
