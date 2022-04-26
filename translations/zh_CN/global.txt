@@ -28,3 +28,4 @@
 "Synchronize","同步"
 "Welcome","欢迎"
 "Show roles","选择角色"
+"Back","后退"

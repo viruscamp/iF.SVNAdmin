@@ -2,9 +2,18 @@
 
 <h1><?php Translate("Access-Path"); ?>: <?php PrintStringValue("AccessPath"); ?></h1>
 <p class="hdesc"><?php Translate("Assigned users and groups to this access-path."); ?></p>
+<?php 
+$from_url = GetValue("FromUrl");
+if ($from_url) {
+?>
+	<h1><a href="<?php print($from_url); ?>"><img src="templates/icons/back.png" alt="<?php Translate("Back"); ?>"><?php Translate("Back"); ?></a></h1>
+<?php
+}
+?>
 
 <h2><?php Translate("Assigned users"); ?></h2>
 <form action="accesspathview.php?accesspath=<?php PrintStringValue("AccessPathEncoded"); ?>" method="POST">
+	<input type="hidden" name="from_url" value="<?php PrintStringValue("FromUrl"); ?>">
 	<input type="hidden" name="selected_accesspaths[]" value="<?php PrintStringValue("AccessPath"); ?>">
 
 	<?php HtmlFilterBox("accesspathviewlist", 1); ?>
@@ -73,6 +82,7 @@
 
       <h2><?php Translate("Assigned groups"); ?></h2>
       <form action="accesspathview.php?accesspath=<?php PrintStringValue("AccessPathEncoded"); ?>" method="POST">
+      <input type="hidden" name="from_url" value="<?php PrintStringValue("FromUrl"); ?>">
       <input type="hidden" name="selected_accesspaths[]" value="<?php PrintStringValue("AccessPath"); ?>">
 
       <?php HtmlFilterBox("assignedgrouplist", 1); ?>

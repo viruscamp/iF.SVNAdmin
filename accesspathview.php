@@ -25,11 +25,17 @@ $appTR->loadModule("accesspathview");
 // Action handling.
 if (check_request_var("unassign"))
 {
+	$from_url = $_POST["from_url"];
 	$appEngine->handleAction("unassign_permission");
 }
 elseif (check_request_var("assign_permission"))
 {
+	$from_url = $_POST["from_url"];
 	$appEngine->handleAction("assign_usergrouptoaccesspath");
+}
+else
+{
+	$from_url = $_SERVER['HTTP_REFERER'];
 }
 
 // Get required variables.
@@ -73,5 +79,6 @@ SetValue("UserList", $users);
 SetValue("GroupList", $groups);
 SetValue("AccessPath", $accesspath);
 SetValue("AccessPathEncoded", rawurlencode($accesspath));
+SetValue("FromUrl", $from_url);
 ProcessTemplate("accesspath/accesspathview.html.php");
 ?>
