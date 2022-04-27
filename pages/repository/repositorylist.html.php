@@ -86,7 +86,17 @@
 				<td>
 					<a href="repositoryview.php?pi=<?php print($r->getEncodedParentIdentifier()); ?>&amp;r=<?php print($r->getEncodedName()); ?>"><?php print($r->name); ?></a>
 				</td>
-				<td><a href="<?php echo GetStringValue("SVNBaseUrl").$r->getEncodedName() ?>"><?php Translate("Checkout"); ?></a></td>
+				<td>
+					<?php $url = GetStringValue("SVNBaseUrl").$r->getName(); ?>
+					<button class="clipboard-btn" data-clipboard-text="<?php print($url); ?>">
+						<img src="templates/icons/copy.png" width="16px" height="16px" border="0" alt="-">
+						<?php Translate("Copy URL"); ?>
+					</button>
+					&nbsp;&nbsp;
+					<a href="<?php print($url); ?>">
+						<?php Translate("Checkout URL"); ?>
+					</a>
+				</td>
 				<?php if (GetBoolValue("ShowOptions")) : ?>
 				<td>
 					<?php if (GetBoolValue("ShowDumpOption")) : ?>

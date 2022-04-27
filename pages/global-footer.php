@@ -10,5 +10,6 @@
 
   </div><!-- End id=main -->
   <script language="Javascript" type="text/javascript">highlightDatatables();</script>
+  <script language="Javascript" type="text/javascript">new ClipboardJS('.clipboard-btn');</script>
 </body>
 </html>

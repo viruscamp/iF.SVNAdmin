@@ -47,7 +47,7 @@
 </tfoot>
 
 <tbody>
-  <?php foreach (GetArrayValue("ItemList") as $item) { ?>
+  <?php foreach (GetArrayValue("ItemList") as $idx => $item) { ?>
   <tr>
     <td>
       <?php if (IsProviderActive(PROVIDER_ACCESSPATH_EDIT) && HasAccess(ACL_MOD_ACCESSPATH, ACL_ACTION_ADD)) { ?>
@@ -78,8 +78,14 @@
       <?php } ?>
     </td>
     <td>
-        <a href="<?php print(GetValue("SVNBaseUrl").GetValue("Repository")->getEncodedName().'/'.$item->getRelativePath()); ?>">
-            <?php Translate("Checkout"); ?>
+        <?php $url = GetValue("SVNBaseUrl").GetValue("Repository")->getName().'/'.$item->getRelativePath(); ?>
+        <button class="clipboard-btn" data-clipboard-text="<?php print($url); ?>">
+            <img src="templates/icons/copy.png" width="16px" height="16px" border="0" alt="-">
+            <?php Translate("Copy URL"); ?>
+        </button>
+        &nbsp;&nbsp;
+        <a href="<?php print($url); ?>">
+            <?php Translate("Checkout URL"); ?>
         </a>
     </td>
     <td>

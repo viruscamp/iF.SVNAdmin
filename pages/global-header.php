@@ -9,6 +9,7 @@
 	<script type="text/javascript" src="templates/jquery-1.4.2.min.js"></script>
 	<script type="text/javascript" src="templates/jquery-ui-1.8.2.custom.min.js"></script>
 	<script type="text/javascript" src="templates/script.js"></script>
+	<script type="text/javascript" src="templates/clipboard.min.js"></script>
 </head>
 <body>
 	<div id="main">
