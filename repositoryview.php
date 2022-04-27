@@ -128,6 +128,7 @@ try {
 	SetValue("BackLinkPathEncoded", rawurlencode($backLinkPath));
 	SetValue("CurrentPath", $varPath);
 	SetValue("RepositoryRoot", $isRepositoryRoot);
+	SetValue("SVNBaseUrl", $appEngine->getConfig()->getValue("Subversion","SVNBaseUrl"));
 }
 catch (Exception $ex) {
 	$engine->addException($ex);

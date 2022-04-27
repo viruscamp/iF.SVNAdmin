@@ -18,6 +18,7 @@
     </th>
     <th width="22">#</th>
     <th><?php Translate("File name"); ?></th>
+    <th><?php Translate("Checkout URL"); ?></th>
     <th width="150"><?php Translate("Author"); ?></th>
     <th width="80"><?php Translate("Revision"); ?></th>
     <?php if (GetBoolValue("ApacheWebLink") || GetBoolValue("CustomWebLink")) { ?>
@@ -75,6 +76,11 @@
       <?php } else { ?>
 			<?php print($item->name); ?>
       <?php } ?>
+    </td>
+    <td>
+        <a href="<?php print(GetValue("SVNBaseUrl").GetValue("Repository")->getEncodedName().'/'.$item->getRelativePath()); ?>">
+            <?php Translate("Checkout"); ?>
+        </a>
     </td>
     <td>
     	<?php print($item->author); ?>

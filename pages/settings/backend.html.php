@@ -83,6 +83,12 @@ $(document).ready(function(){
         <span id="SVNAuthFileTestResult" style="display:none;"></span>
       </td>
     </tr>
+    <tr>
+      <td><?php Translate("Subversion base URL"); ?><br><small><b><?php Translate("Example"); ?>:</b>http://my.company.com/svn/</small></td>
+      <td>
+        <input type="text" name="SVNBaseUrl" id="SVNBaseUrl" value="<?php PrintStringValue("SVNBaseUrl"); ?>">
+      </td>
+    </tr>
   </tbody>
 </table>
 <br>

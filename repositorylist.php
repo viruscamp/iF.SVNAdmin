@@ -90,13 +90,14 @@ try {
 		SetValue('ShowOptions', true);
 		SetValue('ShowDumpOption', true);
 	}
+
+	SetValue('RepositoryParentList', $repositoryParentList);
+	SetValue('RepositoryList', $repositoryList);
+	SetValue('ShowDeleteButton', $engine->getConfig()->getValueAsBoolean('GUI', 'RepositoryDeleteEnabled', true));
+	SetValue("SVNBaseUrl", $appEngine->getConfig()->getValue("Subversion","SVNBaseUrl"));
 }
 catch (Exception $ex) {
 	$engine->addException($ex);
 }
-
-SetValue('RepositoryParentList', $repositoryParentList);
-SetValue('RepositoryList', $repositoryList);
-SetValue('ShowDeleteButton', $engine->getConfig()->getValueAsBoolean('GUI', 'RepositoryDeleteEnabled', true));
 ProcessTemplate('repository/repositorylist.html.php');
 ?>

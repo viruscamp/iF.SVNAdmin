@@ -29,3 +29,5 @@
 "Welcome","欢迎"
 "Show roles","选择角色"
 "Back","后退"
+"Checkout URL","检出地址"
+"Checkout","检出"

@@ -63,6 +63,7 @@ $pAccessPathViewProviderType = get_request_var("AccessPathViewProviderType");
 $pAccessPathEditProviderType = get_request_var("AccessPathEditProviderType");
 $pAuthzVisualSVNSubversionReposRelativeAccessFile = get_request_var("AuthzVisualSVNSubversionReposRelativeAccessFile");
 $pSVNAuthFile = get_request_var("SVNAuthFile");
+$pSVNBaseUrl = get_request_var("SVNBaseUrl");
 $pSVNUserFile = get_request_var("SVNUserFile");
 $pSVNUserDigestFile = get_request_var("SVNUserDigestFile");
 $pSVNDigestRealm = get_request_var("SVNDigestRealm");
@@ -111,6 +112,7 @@ if (check_request_var("save"))
 	$cfgEngine->setValue("Engine:Providers", "AccessPathEditProviderType", $pAccessPathEditProviderType);
 	$cfgEngine->setValue("VisualSVN","AuthzVisualSVNSubversionReposRelativeAccessFile", $pAuthzVisualSVNSubversionReposRelativeAccessFile);
 	$cfgEngine->setValue("Subversion", "SVNAuthFile", $pSVNAuthFile);
+	$cfgEngine->setValue("Subversion", "SVNBaseUrl", $pSVNBaseUrl);
 	$cfgEngine->setValue("Users:passwd", "SVNUserFile", $pSVNUserFile);
 	$cfgEngine->setValue("Users:digest", "SVNUserDigestFile", $pSVNUserDigestFile);
 	$cfgEngine->setValue("Users:digest", "SVNDigestRealm", $pSVNDigestRealm);
@@ -475,6 +477,10 @@ $svnAuthFile = $cfgEngine->getValue("Subversion","SVNAuthFile");
 $svnAuthFileEx = $cfgTpl->getValue("Subversion","SVNAuthFile");
 SetValue("SVNAuthFile", $svnAuthFile);
 SetValue("SVNAuthFileEx", $svnAuthFileEx);
+
+// SVNBaseUrl
+$svnBaseUrl = $cfgEngine->getValue("Subversion","SVNBaseUrl");
+SetValue("SVNBaseUrl", $svnBaseUrl);
 
 // AuthzVisualSVNSubversionReposRelativeAccessFile
 $authzVisualSVNSubversionReposRelativeAccessFile = $cfgEngine->getValue("VisualSVN","AuthzVisualSVNSubversionReposRelativeAccessFile");

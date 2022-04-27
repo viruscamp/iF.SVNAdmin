@@ -21,6 +21,7 @@
 				<th>
 					<?php Translate("Repositories"); ?>
 				</th>
+				<th><?php Translate("Checkout URL"); ?></th>
 				<?php if (GetBoolValue("ShowOptions")) : ?>
 				<th width="150">
 					<?php Translate("Options"); ?>
@@ -85,6 +86,7 @@
 				<td>
 					<a href="repositoryview.php?pi=<?php print($r->getEncodedParentIdentifier()); ?>&amp;r=<?php print($r->getEncodedName()); ?>"><?php print($r->name); ?></a>
 				</td>
+				<td><a href="<?php echo GetStringValue("SVNBaseUrl").$r->getEncodedName() ?>"><?php Translate("Checkout"); ?></a></td>
 				<?php if (GetBoolValue("ShowOptions")) : ?>
 				<td>
 					<?php if (GetBoolValue("ShowDumpOption")) : ?>
