@@ -65,14 +65,39 @@ try {
 		$accessPathList = $accessPathViewProvider->getPaths();
 	}
 
+	// Web-Link - Directory Listing
+	$apacheWebLink = $engine->getConfig()->getValue("GUI", "ApacheDirectoryListing");
+	$customWebLink = $engine->getConfig()->getValue("GUI", "CustomDirectoryListing");
+	$hasApacheWebLink = !empty($apacheWebLink) ? true : false;
+	$hasCustomWebLink = !empty($customWebLink) ? true : false;
+
 	// Repositories of all locations.
 	foreach ($repositoryParentList as $rp) {
 		$repositoryList[$rp->identifier] = $engine->getRepositoryViewProvider()->getRepositoriesOfParent($rp);
 		usort($repositoryList[$rp->identifier], array('\svnadmin\core\entities\Repository', 'compare'));
 		
 		foreach ($repositoryList[$rp->identifier] as $r) {
-			$dirPath = $r->getEncodedName().':/';
-			$val->hasAccessPath = false;
+
+			// Add weblink property.
+			if ($hasApacheWebLink || $hasCustomWebLink)
+			{
+				$args = array($r->getEncodedName(), "");
+
+				if ($hasApacheWebLink)
+				{
+					$r->apacheWebLink = IF_StringUtils::arguments($apacheWebLink, $args);
+					$r->apacheWebLinkRaw = IF_StringUtils::arguments($apacheWebLink, array($r->getName(), ""));
+				}
+
+				if ($hasCustomWebLink)
+				{
+					$r->customWebLink = IF_StringUtils::arguments($customWebLink, $args);
+				}
+			}
+
+			// Check the repository root path is access-path, may has been set permissions on it.
+			$dirPath = $r->getName().':/';
+			$r->hasAccessPath = false;
 			foreach ($accessPathList as &$accessPath) {
 				if ($accessPath->getPath() == $dirPath) {
 					$r->hasAccessPath = true;
@@ -91,10 +116,11 @@ try {
 		SetValue('ShowDumpOption', true);
 	}
 
+	SetValue("ApacheWebLink", $hasApacheWebLink);
+	SetValue("CustomWebLink", $hasCustomWebLink);
 	SetValue('RepositoryParentList', $repositoryParentList);
 	SetValue('RepositoryList', $repositoryList);
 	SetValue('ShowDeleteButton', $engine->getConfig()->getValueAsBoolean('GUI', 'RepositoryDeleteEnabled', true));
-	SetValue("SVNBaseUrl", $appEngine->getConfig()->getValue("Subversion","SVNBaseUrl"));
 }
 catch (Exception $ex) {
 	$engine->addException($ex);

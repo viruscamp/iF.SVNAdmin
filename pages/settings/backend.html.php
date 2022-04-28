@@ -83,12 +83,6 @@ $(document).ready(function(){
         <span id="SVNAuthFileTestResult" style="display:none;"></span>
       </td>
     </tr>
-    <tr>
-      <td><?php Translate("Subversion base URL"); ?><br><small><b><?php Translate("Example"); ?>:</b>http://my.company.com/svn/</small></td>
-      <td>
-        <input type="text" name="SVNBaseUrl" id="SVNBaseUrl" value="<?php PrintStringValue("SVNBaseUrl"); ?>">
-      </td>
-    </tr>
   </tbody>
 </table>
 <br>
@@ -303,6 +297,39 @@ $(document).ready(function(){
         <input type="text" name="SvnAdminExecutable" id="SvnAdminExecutable" value="<?php PrintStringValue("SvnAdminExecutable"); ?>">
         <input type="button" id="SvnAdminExecutableTest" value="<?php Translate("Test"); ?>">
         <span id="SvnAdminExecutableTestResult" style="display:none;"></span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+
+<!-- GUI configuration -->
+<table class="datatable settings" id="tbl_gui">
+  <colgroup>
+    <col width="50%">
+    <col width="50%">
+  </colgroup>
+  <thead>
+    <tr>
+      <th colspan="2"><?php Translate("GUI settings"); ?></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2">
+      <?php Translate("ApacheDirectoryListing and CustomDirectoryListing's Placeholders: <br/> %1=Repository name; %2=Relative path (no leading slash)") ?>
+      </td>
+    </tr>
+    <tr>
+      <td><?php Translate("The web url to the Apache WebDAV directory listing (ApacheDirectoryListing)"); ?><br><small><b><?php Translate("Example"); ?>:</b> <?php PrintStringValue("ApacheDirectoryListingEx"); ?></small></td>
+      <td>
+        <input type="text" name="ApacheDirectoryListing" id="ApacheDirectoryListing" value="<?php PrintStringValue("ApacheDirectoryListing"); ?>">
+      </td>
+    </tr>
+    <tr>
+      <td><?php Translate("The web url to the custom web-application to browse the subversion repository <br/> (e.g. ViewVC, WebSVN, ...) (CustomDirectoryListing)"); ?><br><small><b><?php Translate("Example"); ?>:</b> <?php PrintStringValue("CustomDirectoryListingEx"); ?></small></td>
+      <td>
+        <input type="text" name="CustomDirectoryListing" id="CustomDirectoryListing" value="<?php PrintStringValue("CustomDirectoryListing"); ?>">
       </td>
     </tr>
   </tbody>

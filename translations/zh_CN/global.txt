@@ -33,3 +33,4 @@
 "Checkout URL","检出地址"
 "Copy","复制"
 "Copy URL","复制地址"
+"Links","链接"

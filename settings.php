@@ -63,8 +63,9 @@ $pAccessPathViewProviderType = get_request_var("AccessPathViewProviderType");
 $pAccessPathEditProviderType = get_request_var("AccessPathEditProviderType");
 $pAuthzVisualSVNSubversionReposRelativeAccessFile = get_request_var("AuthzVisualSVNSubversionReposRelativeAccessFile");
 $pSVNAuthFile = get_request_var("SVNAuthFile");
-$pSVNBaseUrl = get_request_var("SVNBaseUrl");
 $pSVNUserFile = get_request_var("SVNUserFile");
+$pApacheDirectoryListing = get_request_var("ApacheDirectoryListing");
+$pCustomDirectoryListing = get_request_var("CustomDirectoryListing");
 $pSVNUserDigestFile = get_request_var("SVNUserDigestFile");
 $pSVNDigestRealm = get_request_var("SVNDigestRealm");
 $pSVNParentPath = get_request_var("SVNParentPath");
@@ -112,8 +113,9 @@ if (check_request_var("save"))
 	$cfgEngine->setValue("Engine:Providers", "AccessPathEditProviderType", $pAccessPathEditProviderType);
 	$cfgEngine->setValue("VisualSVN","AuthzVisualSVNSubversionReposRelativeAccessFile", $pAuthzVisualSVNSubversionReposRelativeAccessFile);
 	$cfgEngine->setValue("Subversion", "SVNAuthFile", $pSVNAuthFile);
-	$cfgEngine->setValue("Subversion", "SVNBaseUrl", $pSVNBaseUrl);
 	$cfgEngine->setValue("Users:passwd", "SVNUserFile", $pSVNUserFile);
+	$cfgEngine->setValue("GUI", "ApacheDirectoryListing", $pApacheDirectoryListing);
+	$cfgEngine->setValue("GUI", "CustomDirectoryListing", $pCustomDirectoryListing);
 	$cfgEngine->setValue("Users:digest", "SVNUserDigestFile", $pSVNUserDigestFile);
 	$cfgEngine->setValue("Users:digest", "SVNDigestRealm", $pSVNDigestRealm);
 	$cfgEngine->setValue("Repositories:svnclient", "SVNParentPath", $pSVNParentPath);
@@ -478,13 +480,23 @@ $svnAuthFileEx = $cfgTpl->getValue("Subversion","SVNAuthFile");
 SetValue("SVNAuthFile", $svnAuthFile);
 SetValue("SVNAuthFileEx", $svnAuthFileEx);
 
-// SVNBaseUrl
-$svnBaseUrl = $cfgEngine->getValue("Subversion","SVNBaseUrl");
-SetValue("SVNBaseUrl", $svnBaseUrl);
+// GUI.ApacheDirectoryListing
+$apacheDirectoryListing = $cfgEngine->getValue("GUI","ApacheDirectoryListing");
+$apacheDirectoryListingEx = $cfgTpl->getValue("GUI","ApacheDirectoryListing");
+SetValue("ApacheDirectoryListing", $apacheDirectoryListing);
+SetValue("ApacheDirectoryListingEx", $apacheDirectoryListingEx);
+
+// GUI.CustomDirectoryListing
+$customDirectoryListing = $cfgEngine->getValue("GUI","CustomDirectoryListing");
+$customDirectoryListingEx = $cfgTpl->getValue("GUI","CustomDirectoryListing");
+SetValue("CustomDirectoryListing", $customDirectoryListing);
+SetValue("CustomDirectoryListingEx", $customDirectoryListingEx);
 
 // AuthzVisualSVNSubversionReposRelativeAccessFile
 $authzVisualSVNSubversionReposRelativeAccessFile = $cfgEngine->getValue("VisualSVN","AuthzVisualSVNSubversionReposRelativeAccessFile");
+$authzVisualSVNSubversionReposRelativeAccessFileEx = $cfgTpl->getValue("VisualSVN","AuthzVisualSVNSubversionReposRelativeAccessFile");
 SetValue("AuthzVisualSVNSubversionReposRelativeAccessFile", $authzVisualSVNSubversionReposRelativeAccessFile);
+SetValue("AuthzVisualSVNSubversionReposRelativeAccessFileEx", $authzVisualSVNSubversionReposRelativeAccessFileEx);
 SetValue("AuthzVisualSVNSubversionGroupsFileEx", "groups.conf");
 
 // UserViewProviderType

@@ -94,6 +94,7 @@ try {
 			if ($hasApacheWebLink)
 			{
 				$val->apacheWebLink = IF_StringUtils::arguments($apacheWebLink, $args);
+				$val->apacheWebLinkRaw = IF_StringUtils::arguments($apacheWebLink, array($oR->getName(), $val->getRelativePath()));
 			}
 
 			if ($hasCustomWebLink)
@@ -128,7 +129,6 @@ try {
 	SetValue("BackLinkPathEncoded", rawurlencode($backLinkPath));
 	SetValue("CurrentPath", $varPath);
 	SetValue("RepositoryRoot", $isRepositoryRoot);
-	SetValue("SVNBaseUrl", $appEngine->getConfig()->getValue("Subversion","SVNBaseUrl"));
 }
 catch (Exception $ex) {
 	$engine->addException($ex);

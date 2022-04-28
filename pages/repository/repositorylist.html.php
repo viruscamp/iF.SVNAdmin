@@ -21,10 +21,14 @@
 				<th>
 					<?php Translate("Repositories"); ?>
 				</th>
-				<th><?php Translate("Checkout URL"); ?></th>
 				<?php if (GetBoolValue("ShowOptions")) : ?>
 				<th width="150">
 					<?php Translate("Options"); ?>
+				</th>
+				<?php endif; ?>
+				<?php if (GetBoolValue("ApacheWebLink") || GetBoolValue("CustomWebLink")) : ?>
+				<th width="160">
+					<?php Translate("Links"); ?>
 				</th>
 				<?php endif; ?>
 			</tr>
@@ -33,7 +37,7 @@
 		<?php if (GetBoolValue("ShowDeleteButton") && IsProviderActive(PROVIDER_REPOSITORY_EDIT) && HasAccess(ACL_MOD_REPO, ACL_ACTION_DELETE)): ?>
 		<tfoot>
 			<tr>
-				<td colspan="4">
+				<td colspan="5">
 
 				<table class="datatableinline">
 				<colgroup>
@@ -51,8 +55,13 @@
 					<td align="right"></td>
 				</tr>
 				</table>
-
 				</td>
+				<?php if (GetBoolValue("ShowOptions")) : ?>
+				<td></td>
+				<?php endif; ?>
+				<?php if (GetBoolValue("ApacheWebLink") || GetBoolValue("CustomWebLink")) : ?>
+				<td></td>
+				<?php endif; ?>
 			</tr>
 		</tfoot>
 		<?php endif; ?>
@@ -86,17 +95,6 @@
 				<td>
 					<a href="repositoryview.php?pi=<?php print($r->getEncodedParentIdentifier()); ?>&amp;r=<?php print($r->getEncodedName()); ?>"><?php print($r->name); ?></a>
 				</td>
-				<td>
-					<?php $url = GetStringValue("SVNBaseUrl").$r->getName(); ?>
-					<button class="clipboard-btn" data-clipboard-text="<?php print($url); ?>">
-						<img src="templates/icons/copy.png" width="16px" height="16px" border="0" alt="-">
-						<?php Translate("Copy URL"); ?>
-					</button>
-					&nbsp;&nbsp;
-					<a href="<?php print($url); ?>">
-						<?php Translate("Checkout URL"); ?>
-					</a>
-				</td>
 				<?php if (GetBoolValue("ShowOptions")) : ?>
 				<td>
 					<?php if (GetBoolValue("ShowDumpOption")) : ?>
@@ -104,6 +102,18 @@
 						<img src="templates/icons/exportdump.png" border="0" alt="<?php Translate("Dump"); ?>" title="<?php Translate("Export dump"); ?>">
 					</a>
 					<?php endif; ?>
+				</td>
+				<?php endif; ?>
+				<?php if (GetBoolValue("ApacheWebLink") || GetBoolValue("CustomWebLink")) : ?>
+				<td align="center">
+					<?php if (GetBoolValue("ApacheWebLink")) : ?>
+					<button class="clipboard-btn" data-clipboard-text="<?php print($r->apacheWebLinkRaw); ?>">
+						<img src="templates/icons/copy.png" width="16px" height="16px" border="0" alt="C">
+						<?php Translate("Copy URL"); ?>
+					</button>
+					<a href="<?php print($r->apacheWebLink); ?>" target="_blank"><img src="templates/images/apache-icon.png" alt="A" title="Apache WebDAV"></a>
+					<?php endif; ?>
+					<?php if (GetBoolValue("CustomWebLink")) { ?><a href="<?php print($r->customWebLink); ?>" target="_blank"><img src="templates/images/weblink-icon.gif" alt="W" title="Custom Subversion Browser"></a><?php } ?>
 				</td>
 				<?php endif; ?>
 			</tr>
