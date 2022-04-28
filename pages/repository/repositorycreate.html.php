@@ -55,8 +55,21 @@ $(document).ready(function(){
     </div>
 
     <div class="form-field">
-      <label for="accesspathcreate"><?php Translate("Access-Path"); ?></label>
-      <input type="checkbox" name="accesspathcreate" id="accesspathcreate" value="1" checked> <?php Translate("Create"); ?>
+      <label for="groupcreate"><?php Translate("Whether to create a group with the same name of the repository"); ?></label>
+      <input type="radio" name="groupcreate" value="" checked><?php Translate("Don't create"); ?></input>
+      <input type="radio" name="groupcreate" value="r"><?php Translate("Create with Read only"); ?></input>
+      <input type="radio" name="groupcreate" value="rw"><?php Translate("Create with Read &amp; Write"); ?></input>
+    </div>
+
+    <div class="form-field">
+      <label for="permissioncreate"><?php Translate("Assign permissions after repository created"); ?></label>
+      <input type="text" name="permissioncreate" id="permissioncreate" list="permissioncreate-datalist"></input>
+      <datalist id="permissioncreate-datalist">
+        <option value="" />
+        <option value="admin=rw" />
+        <option value="*=rw" />
+        <option value="*=r,admin=rw" />
+      </datalist>
     </div>
 
     <div class="form-field">

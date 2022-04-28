@@ -41,16 +41,74 @@ else {
 		$engine->getRepositoryEditProvider()->save();
 		$engine->addMessage(tr("The repository %0 has been created successfully", array($reponame)));
 
-		// Create the access path now.
+		// Create a group with the same name of the repository
 		try {
-			if (get_request_var("accesspathcreate") != NULL
-				&& $engine->isProviderActive(PROVIDER_ACCESSPATH_EDIT)) {
-				
-				$ap = new \svnadmin\core\entities\AccessPath($reponame . ':/');
+			$perm = get_request_var("groupcreate");
+			if ($perm
+				&& $engine->isProviderActive(PROVIDER_ACCESSPATH_EDIT)
+				&& $engine->isProviderActive(PROVIDER_GROUP_EDIT)) {
 
-				if ($engine->getAccessPathEditProvider()->createAccessPath($ap)) {
-					$engine->getAccessPathEditProvider()->save();
+				$objAccessPath = new \svnadmin\core\entities\AccessPath($reponame . ':/');
+				$objGroup = new \svnadmin\core\entities\Group($reponame, $reponame);
+				$objPermission = new \svnadmin\core\entities\Permission;
+				if ($perm == "r") {
+					$objPermission->perm = \svnadmin\core\entities\Permission::$PERM_READ;
+				} else if ($perm == "rw") {
+					$objPermission->perm =  \svnadmin\core\entities\Permission::$PERM_READWRITE;
+				} else {
+					throw new ValidationException(tr("Invalid Permission for created group"));
 				}
+
+				$engine->getGroupEditProvider()->addGroup($objGroup);
+				$engine->getGroupEditProvider()->save();
+
+				$engine->getAccessPathEditProvider()->createAccessPath($objAccessPath);
+				$engine->getAccessPathEditProvider()->assignGroupToAccessPath($objGroup, $objAccessPath, $objPermission);
+				$engine->getAccessPathEditProvider()->save();
+			}
+		}
+		catch (Exception $e1) {
+			$engine->addException($e1);
+		}
+
+		// Assign permissions after repository created
+		try {
+			$permissioncreate = get_request_var("permissioncreate");
+			if ($permissioncreate
+				&& $engine->isProviderActive(PROVIDER_ACCESSPATH_EDIT)) {
+
+				$objAccessPath = new \svnadmin\core\entities\AccessPath($reponame . ':/');
+				$engine->getAccessPathEditProvider()->createAccessPath($objAccessPath);
+
+				foreach(explode(",",$permissioncreate) as $line) {
+					$values = explode("=", $line);
+					if (count($values) != 2) {
+						throw new ValidationException(tr("Invalid permissions to assign"));
+					}
+
+					$perm = $values[1];
+					$objPermission = new \svnadmin\core\entities\Permission;
+					if ($perm == "") {
+						$objPermission->perm = \svnadmin\core\entities\Permission::$PERM_NONE;
+					} else if ($perm == "r") {
+						$objPermission->perm = \svnadmin\core\entities\Permission::$PERM_READ;
+					} else if ($perm == "rw") {
+						$objPermission->perm =  \svnadmin\core\entities\Permission::$PERM_READWRITE;
+					} else {
+						throw new ValidationException(tr("Invalid permissions to assign"));
+					}
+
+					$group_user = $values[0];
+					if(strpos($group_user, "@" ) === 0){
+						$group = explode("@",$group_user)[1];
+						$objGroup = new \svnadmin\core\entities\Group($group, $group);
+						$engine->getAccessPathEditProvider()->assignGroupToAccessPath($objGroup, $objAccessPath, $objPermission);
+					} else {
+						$objUser = new \svnadmin\core\entities\User($group_user, $group_user);
+						$engine->getAccessPathEditProvider()->assignUserToAccessPath($objUser, $objAccessPath, $objPermission);
+					}
+				}
+				$engine->getAccessPathEditProvider()->save();
 			}
 		}
 		catch (Exception $e2) {
