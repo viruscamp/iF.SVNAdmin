@@ -53,6 +53,29 @@ if ($accessPathViewProvider->hasChildren()) {
 $users = $accessPathViewProvider->getUsersOfPath($o);
 $groups = $accessPathViewProvider->getGroupsOfPath($o);
 
+$inheritedUsers = [];
+$inheritedGroups = [];
+
+$allpaths = $accessPathViewProvider->getPaths();
+usort($allpaths, array('\svnadmin\core\entities\AccessPath',"compare"));
+foreach($allpaths as $ppath) {
+	if (strpos($accesspath, $ppath->path) === 0) {
+		$exact_match = ($accesspath == $ppath->path);
+
+		$pusers = $accessPathViewProvider->getUsersOfPath($ppath);
+		foreach($pusers as $u) {
+			$ap = new \svnadmin\core\entities\AccessPath($ppath->path, $u->perm, !$exact_match);
+			$inheritedUsers[$u->name] = $ap;
+		}
+
+		$pgroups = $accessPathViewProvider->getGroupsOfPath($ppath);
+		foreach($pgroups as $g) {
+			$ap = new \svnadmin\core\entities\AccessPath($ppath->path, $g->perm, !$exact_match);
+			$inheritedGroups[$g->name] = $ap;
+		}
+	}
+}
+
 // Data to assign new user permissions.
 // Data to assign new group permissions.
 if ($appEngine->isAccessPathEditActive() && $appEngine->checkUserAccess(ACL_MOD_ACCESSPATH, ACL_ACTION_ASSIGN))
@@ -80,5 +103,7 @@ SetValue("GroupList", $groups);
 SetValue("AccessPath", $accesspath);
 SetValue("AccessPathEncoded", rawurlencode($accesspath));
 SetValue("FromUrl", $from_url);
+SetValue("InheritedUsers", $inheritedUsers);
+SetValue("InheritedGroups", $inheritedGroups);
 ProcessTemplate("accesspath/accesspathview.html.php");
 ?>

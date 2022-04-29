@@ -146,4 +146,59 @@ if ($from_url) {
       </table><br>
       </form>
 
+      <h2><?php Translate("Inherited users"); ?></h2>
+      <?php HtmlFilterBox("inheriteduserlist", 1); ?>
+      <table id="inheriteduserlist" class="datatable">
+      <thead>
+      <tr>
+        <th width="20"></th>
+        <th width="300"><?php Translate("User"); ?></th>
+        <th width="300"><?php Translate("Permission"); ?></th>
+        <th><?php Translate("Source Access-Path"); ?></th>
+      </tr>
+      </thead>
+      <tbody>
+      <?php foreach(GetValue("InheritedUsers") as $u => $ap): ?>
+      <?php if ($ap->inherited): ?>
+      <tr>
+        <td></td>
+        <td><a href="userview.php?username=<?php print($u); ?>"><?php print($u); ?></a></td>
+        <td><?php print($ap->perm); ?></td>
+        <td>
+          <a href="accesspathview.php?accesspath=<?php print(rawurlencode($ap->path)); ?>"/><?php print($ap->path); ?></a>
+        </td>
+      </tr>
+      <?php endif; ?>
+      <?php endforeach; ?>
+      </tbody>
+      </table>
+      <br/>
+
+      <h2><?php Translate("Inherited groups"); ?></h2>
+      <?php HtmlFilterBox("inheritedgrouplist", 1); ?>
+      <table id="inheritedgrouplist" class="datatable">
+      <thead>
+      <tr>
+        <th width="20"></th>
+        <th width="300"><?php Translate("Group"); ?></th>
+        <th width="300"><?php Translate("Permission"); ?></th>
+        <th><?php Translate("Source Access-Path"); ?></th>
+      </tr>
+      </thead>
+      <tbody>
+      <?php foreach(GetValue("InheritedGroups") as $g => $ap): ?>
+      <?php if ($ap->inherited): ?>
+      <tr>
+        <td></td>
+        <td><a href="groupview.php?groupname=<?php print(rawurlencode($g)); ?>"><?php print($g); ?></a></td>
+        <td><?php print($ap->perm); ?></td>
+        <td>
+          <a href="accesspathview.php?accesspath=<?php print(rawurlencode($ap->path)); ?>"/><?php print($ap->path); ?></a>
+        </td>
+      </tr>
+      <?php endif; ?>
+      <?php endforeach; ?>
+      </tbody>
+      </table>
+      <br/>
 <?php GlobalFooter(); ?>
