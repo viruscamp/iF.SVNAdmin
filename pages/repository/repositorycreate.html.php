@@ -6,12 +6,15 @@ $(document).ready(function(){
   $("#repostructuretype").change(function(){
     var eSingle = $("#repostructuretype-single");
     var eMulti  = $("#repostructuretype-multi");
+    var eOther = $("#repostructuretype-other");
 
     eSingle.hide();
     eMulti.hide();
+    eOther.hide();
 
     if ($(this).val() == "simple:single"){ eSingle.show(); }
     else if ($(this).val() == "simple:multi"){ eMulti.show(); }
+    else { eOther.show(); }
   });
 });
 </script>
@@ -84,9 +87,18 @@ $(document).ready(function(){
       </select>
     </div>
 
+    <div class="form-field" id="repostructuretype-other">
+      <p>
+        <b><?php Translate("Administrator can add more repository template"); ?>:</b><br>
+        <p>Any file in data/repotmpl/[selected_template]/hooks/ will be copied to [new_repository]/hooks/ .</p>
+        <p>Any file in data/repotmpl/[selected_template]/conf/ will be copied to [new_repository]/conf/ .</p>
+        <p>Any file in data/repotmpl/[selected_template]/files/ will be added and committed to svn://[new_repository] .</p>
+      </p>
+    </div>
+
     <div class="form-field" id="repostructuretype-single" style="display:none;">
       <p>
-        <b><?php Translate("Single project structure"); ?></b><br>
+        <b><?php Translate("Single project structure"); ?>:</b><br>
         <?php Translate("Creates the folders 'trunk', 'branches' and 'tags' in the root of the repository."); ?>
       </p>
     </div>
