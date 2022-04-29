@@ -251,10 +251,10 @@ class IF_SVNClientC extends IF_SVNBaseC
   {
   	switch ($this->curTag)
   	{
-  		case "NAME";
+  		case "NAME":
   		  if ($tagdata === false || $tagdata === "")
   		    return;
-  		  $this->curList->curEntry->name.= self::encode_string(trim($tagdata));
+  		  $this->curList->curEntry->name.= $tagdata;
   		  break;
 
   		case "AUTHOR":
@@ -277,6 +277,9 @@ class IF_SVNClientC extends IF_SVNBaseC
     {
       // Add the created entry to the list as child.
       case "ENTRY":
+        $name = $this->curList->curEntry->name;
+        $name = self::encode_string(trim($name));
+        $this->curList->curEntry->name = $name;
         $this->curList->entries[] = $this->curList->curEntry;
         break;
 
