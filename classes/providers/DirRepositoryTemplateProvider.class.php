@@ -19,30 +19,28 @@
  */
 namespace svnadmin\providers;
 
-function custom_copy($src, $dst) {
+function custom_copy($src, $dst, $modes=null) {
 	// open the source directory
-	$dir = opendir($src); 
+	$dir = opendir($src);
 
 	// Make the destination directory if not exist
-	@mkdir($dst); 
+	@mkdir($dst);
 
 	// Loop through the files in source directory
-	while( $file = readdir($dir) ) { 
-
-		if (( $file != '.' ) && ( $file != '..' )) { 
-			if ( is_dir($src . '/' . $file) ) 
-			{ 
-
+	while( $file = readdir($dir) ) {
+		if (( $file != '.' ) && ( $file != '..' )) {
+			if ( is_dir($src . '/' . $file) ) {
 				// Recursively calling custom copy function
-				// for sub directory 
-				custom_copy($src . '/' . $file, $dst . '/' . $file); 
-
-			} 
-			else { 
-				copy($src . '/' . $file, $dst . '/' . $file); 
-			} 
-		} 
-	} 
+				// for sub directory
+				custom_copy($src . '/' . $file, $dst . '/' . $file, $modes);
+			} else {
+				copy($src . '/' . $file, $dst . '/' . $file);
+				if ($modes != null) {
+					chmod($dst . '/' . $file, $modes);
+				}
+			}
+		}
+	}
 
 	closedir($dir);
 }
@@ -114,14 +112,14 @@ class DirRepositoryTemplateProvider implements \svnadmin\core\interfaces\IReposi
 		return $ret;
 	}
 
-	protected function copyFiles($templateName, $objRepository, $relativePath)
+	protected function copyFiles($templateName, $objRepository, $relativePath, $modes=null)
 	{
 		global $appEngine;
 		$reporoot = $appEngine->getRepositoryViewProvider()->getRepositoryPath($objRepository);
 		$destdir = $reporoot."/".$relativePath;
 		$srcdir = $this->tmplroot."/".$templateName."/".$relativePath;
 		if (is_dir($srcdir) && is_readable($srcdir) && is_dir($destdir) && is_writable($destdir)) {
-			custom_copy($srcdir, $destdir);
+			custom_copy($srcdir, $destdir, $modes);
 			return true;
 		}
 		return false;
@@ -129,7 +127,7 @@ class DirRepositoryTemplateProvider implements \svnadmin\core\interfaces\IReposi
 
 	public function copyHooks($templateName, $objRepository)
 	{
-		return $this->copyFiles($templateName, $objRepository, "hooks");
+		return $this->copyFiles($templateName, $objRepository, "hooks", 0755);
 	}
 
 	public function copyConf($templateName, $objRepository)
