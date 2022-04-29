@@ -50,5 +50,7 @@ interface IRepositoryViewProvider extends IViewProvider
 	 * @return array<\svnadmin\core\entities\RepositoryPath>
 	 */
 	public function listPath(\svnadmin\core\entities\Repository $oRepository, $relativePath);
+	
+	public function getRepositoryPath(\svnadmin\core\entities\Repository $oRepository);
 }
 ?>

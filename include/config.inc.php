@@ -335,6 +335,9 @@ if ($cfg->getValue("Engine:Providers", "AuthenticationStatus") == "basic")
   }
 }
 
+include_once( "./classes/core/interfaces/IRepositoryTemplateProvider.iface.php" );
+include_once( "./classes/providers/DirRepositoryTemplateProvider.class.php" );
+
 /**
  * An administrator role MUST be defined, if the authentication is active.
  * Otherwise nobody could setup the application.

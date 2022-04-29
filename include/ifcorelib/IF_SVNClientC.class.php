@@ -285,5 +285,10 @@ class IF_SVNClientC extends IF_SVNBaseC
       	break;
     }
   }
+
+  public function getSvnExe()
+  {
+    return $this->svnExe;
+  }
 }
 ?>

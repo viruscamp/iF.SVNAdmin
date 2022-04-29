@@ -10,8 +10,8 @@ $(document).ready(function(){
     eSingle.hide();
     eMulti.hide();
 
-    if ($(this).val() == "single"){ eSingle.show(); }
-    else if ($(this).val() == "multi"){ eMulti.show(); }
+    if ($(this).val() == "simple:single"){ eSingle.show(); }
+    else if ($(this).val() == "simple:multi"){ eMulti.show(); }
   });
 });
 </script>
@@ -76,8 +76,11 @@ $(document).ready(function(){
       <label for="repostructuretype"><?php Translate("Pre-defined repository structure"); ?></label>
       <select name="repostructuretype" id="repostructuretype">
         <option value=""><?php Translate("No pre-defined structure"); ?></option>
-        <option value="single"><?php Translate("Single project structure"); ?></option>
-        <option value="multi"><?php Translate("Multi project structure"); ?></option>
+        <option value="simple:single"><?php Translate("Single project structure"); ?></option>
+        <option value="simple:multi"><?php Translate("Multi project structure"); ?></option>
+        <?php foreach (GetArrayValue('RepositoryTemplateList') as $rt) : ?>
+        <option value="template:<?php print($rt); ?>"><?php Translate("Template") ?> : <?php print($rt); ?></option>
+        <?php endforeach; ?>
       </select>
     </div>
 

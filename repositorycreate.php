@@ -44,7 +44,8 @@ if (check_request_var('create'))
 //
 // View Data
 //
-
+$repositoryTemplateProvider = \svnadmin\providers\DirRepositoryTemplateProvider::getInstance();
+SetValue("RepositoryTemplateList", $repositoryTemplateProvider->getTemplates());
 SetValue('RepositoryParentList', $engine->getRepositoryViewProvider()->getRepositoryParents());
 ProcessTemplate("repository/repositorycreate.html.php");
 ?>

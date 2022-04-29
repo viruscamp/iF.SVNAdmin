@@ -193,6 +193,16 @@ class RepositoryViewProvider implements \svnadmin\core\interfaces\IRepositoryVie
 		return $ret;
 	}
 
+	public function getRepositoryPath(\svnadmin\core\entities\Repository $oRepository)
+	{
+		// Get SVNParentPath of given Repository object.
+		$svnParentPath = $this->getRepositoryParentConfigValue(
+				$oRepository->getParentIdentifier(), 'SVNParentPath');
+		
+		// Absolute path to the repository.
+		return $svnParentPath . '/' . $oRepository->name;
+	}
+
     /**
      * (non-PHPdoc)
      * @see svnadmin\core\interfaces.IRepositoryViewProvider::listPath()

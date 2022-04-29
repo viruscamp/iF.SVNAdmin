@@ -181,7 +181,7 @@ class IF_SVNBaseC
    * @param string $uri
    * @return string
    */
-  function encode_url_path($uri)
+  public function encode_url_path($uri)
   {
   	// Replace \ against /
   	$uri = str_replace(DIRECTORY_SEPARATOR, "/", $uri);
@@ -243,7 +243,7 @@ class IF_SVNBaseC
    *
    * @param unknown_type $local_path
    */
-  function encode_local_path($local_path)
+  public function encode_local_path($local_path)
   {
   	$local_path = str_replace(DIRECTORY_SEPARATOR, "/", $local_path);
   	$local_path = self::encode_string($local_path);
@@ -281,7 +281,7 @@ class IF_SVNBaseC
    * @param bool $asXml
    * @return string
    */
-  function create_svn_command($exe, $command, $repo_path, $args=null, $asXml=true)
+  public function create_svn_command($exe, $command, $repo_path, $args=null, $asXml=true)
   {
   	$cmd = "\"".$exe."\" ".$command;
 
