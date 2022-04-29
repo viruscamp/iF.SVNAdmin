@@ -93,6 +93,8 @@ try {
 
 			if ($hasApacheWebLink)
 			{
+				// FIXME apacheWebLink will be http://example.com/svn/project1/trunk%2Fdocs instead of http://example.com/svn/project1/trunk/docs
+				// It should use encodeURI($val->getRelativePath()) to keep '/', but encodeURI is a javascript function which does not exist in php.
 				$val->apacheWebLink = IF_StringUtils::arguments($apacheWebLink, $args);
 				$val->apacheWebLinkRaw = IF_StringUtils::arguments($apacheWebLink, array($oR->getName(), $val->getRelativePath()));
 			}

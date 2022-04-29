@@ -89,7 +89,7 @@
         <img src="templates/icons/copy.png" width="16px" height="16px" border="0" alt="C">
         <?php Translate("Copy URL"); ?>
       </button>
-      <a href="<?php print($item->apacheWebLink); ?>" target="_blank"><img src="templates/images/apache-icon.png" alt="A" title="Apache WebDAV"></a>
+      <a href="<?php print($item->apacheWebLinkRaw); ?>" target="_blank"><img src="templates/images/apache-icon.png" alt="A" title="Apache WebDAV"></a>
       <?php } ?>
       <?php if (GetBoolValue("CustomWebLink")) { ?><a href="<?php print($item->customWebLink); ?>" target="_blank"><img src="templates/images/weblink-icon.gif" alt="W" title="Custom Subversion Browser"></a><?php } ?>
     </td>
