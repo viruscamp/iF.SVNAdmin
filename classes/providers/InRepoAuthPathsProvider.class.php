@@ -29,15 +29,14 @@ function makeAccessPath($accesspath) {
 	return new \svnadmin\core\entities\AccessPath($accesspath);
 }
 
-class VisualSvnAuthPathsProviderChild implements	\svnadmin\core\interfaces\IPathsViewProvider,
+// <SVNParentPath>/<repo1>/conf/authz contains pathes and permission only
+class InRepoAuthPathsProviderChild implements	\svnadmin\core\interfaces\IPathsViewProvider,
 												\svnadmin\core\interfaces\IPathsEditProvider
 {
 	private $m_repo_name = null;
 
-	// only for VisualSvnAuthPathsProvider
 	public $m_auth_provider = null;
 
-	// only for VisualSvnAuthPathsProvider
 	public $m_dirty = false;
 
 	public function getRepoName() {
@@ -63,7 +62,7 @@ class VisualSvnAuthPathsProviderChild implements	\svnadmin\core\interfaces\IPath
 		}
 		global $appEngine;
 		$svnParentPath = $appEngine->getConfig()->getValue("Repositories:svnclient", "SVNParentPath");
-		$relativePath = $appEngine->getConfig()->getValue("VisualSVN", "AuthzVisualSVNSubversionReposRelativeAccessFile");
+		$relativePath = $appEngine->getConfig()->getValue("Subversion", "AuthzSVNReposRelativeAccessFile");
 		$auth_provider = new AuthFileGroupAndPathsProvider();
 		$auth_provider->init($svnParentPath.'/'.$this->m_repo_name.'/conf/'.$relativePath);
 		$auth_provider->setAccessPathPattern('/^\/.*$/i');
@@ -247,19 +246,19 @@ class VisualSvnAuthPathsProviderChild implements	\svnadmin\core\interfaces\IPath
 	}
 }
 
-// <svnrepo>/<lib1>/conf/VisualSVN-SvnAuthz.ini contains pathes and permission only
-class VisualSvnAuthPathsProvider implements	\svnadmin\core\interfaces\IPathsViewProvider,
+// Facade IPathsEditProvider which manages all the children.
+class InRepoAuthPathsProvider implements	\svnadmin\core\interfaces\IPathsViewProvider,
 												\svnadmin\core\interfaces\IPathsEditProvider
 {
 	/**
 	 * The singelton instance of this class.
-	 * @var \svnadmin\providers\VisualSvnAuthPathsProvider
+	 * @var \svnadmin\providers\InRepoAuthPathsProvider
 	 */
 	private static $m_instance = null;
 
 	/**
-	 * cache of child repo's VisualSvnAuthPathsProviderChild
-	 * array( repo1 => VisualSvnAuthPathsProviderChild );
+	 * cache of child repo's InRepoAuthPathsProviderChild
+	 * array( repo1 => InRepoAuthPathsProviderChild );
 	 */
 	private $m_children = null;
 
@@ -273,12 +272,12 @@ class VisualSvnAuthPathsProvider implements	\svnadmin\core\interfaces\IPathsView
 	/**
 	 * Gets the singelton instance of this object.
 	 *
-	 * @return \svnadmin\providers\VisualSvnAuthPathsProvider
+	 * @return \svnadmin\providers\InRepoAuthPathsProvider
 	 */
 	public static function getInstance()
 	{
 		if (self::$m_instance == null) {
-			self::$m_instance = new VisualSvnAuthPathsProvider();
+			self::$m_instance = new InRepoAuthPathsProvider();
 		}
 		return self::$m_instance;
 	}
@@ -347,7 +346,7 @@ class VisualSvnAuthPathsProvider implements	\svnadmin\core\interfaces\IPathsView
 
 	private static function createChild($repo_name)
 	{
-		$repo = new VisualSvnAuthPathsProviderChild($repo_name);
+		$repo = new InRepoAuthPathsProviderChild($repo_name);
 		$repo->init();
 		return $repo;
 	}

@@ -271,10 +271,10 @@ if ($cfg->getValue("Engine:Providers", "AccessPathViewProviderType") == "svnauth
   $pathsView = \svnadmin\providers\AuthFileGroupAndPathsProvider::getInstance();
   $appEngine->setAccessPathViewProvider( $pathsView );
 }
-if ($cfg->getValue("Engine:Providers", "AccessPathViewProviderType") == "visualsvn")
+if ($cfg->getValue("Engine:Providers", "AccessPathViewProviderType") == "svnauthfileinrepo")
 {
-  include_once( "./classes/providers/VisualSvnAuthPathsProvider.class.php" );
-  $pathsView = \svnadmin\providers\VisualSvnAuthPathsProvider::getInstance();
+  include_once( "./classes/providers/InRepoAuthPathsProvider.class.php" );
+  $pathsView = \svnadmin\providers\InRepoAuthPathsProvider::getInstance();
   $appEngine->setAccessPathViewProvider( $pathsView );
 }
 
@@ -287,10 +287,10 @@ if ($cfg->getValue("Engine:Providers", "AccessPathEditProviderType") == "svnauth
   $pathsEdit = \svnadmin\providers\AuthFileGroupAndPathsProvider::getInstance();
   $appEngine->setAccessPathEditProvider( $pathsEdit );
 }
-if ($cfg->getValue("Engine:Providers", "AccessPathEditProviderType") == "visualsvn")
+if ($cfg->getValue("Engine:Providers", "AccessPathEditProviderType") == "svnauthfileinrepo")
 {
-  include_once( "./classes/providers/VisualSvnAuthPathsProvider.class.php" );
-  $pathsEdit = \svnadmin\providers\VisualSvnAuthPathsProvider::getInstance();
+  include_once( "./classes/providers/InRepoAuthPathsProvider.class.php" );
+  $pathsEdit = \svnadmin\providers\InRepoAuthPathsProvider::getInstance();
   $appEngine->setAccessPathEditProvider( $pathsEdit );
 }
 

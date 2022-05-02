@@ -437,7 +437,7 @@ class IF_SVNAuthFileC
 		}
 
 		// Validate the $repopath string.
-		$pattern = $this->access_path_pattern; // default to '/^[A-Za-z0-9\_\-.]+:\/.*$/i', visualsvn use '/^\/.*$/i' without repo name
+		$pattern = $this->access_path_pattern; // default to '/^[A-Za-z0-9\_\-.]+:\/.*$/i', in repo authz use '/^\/.*$/i' without repo name
 		if ($repopath != "/" && !preg_match($pattern, $repopath))
 		{
 			throw new Exception('Invalid repository name. (Pattern: '.$pattern.')');

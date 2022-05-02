@@ -390,28 +390,28 @@ function updateSettingsSelection()
   // Access-Path view
   if ($("#AccessPathViewProviderType").val() == "off")
   {
-    $("#tbl_visualsvn").hide(speed);
+    $("#tr_svn_authz_relative").hide(speed);
     $("#td_desc_authz").show();
-    $("#td_desc_authz_visualsvn").hide();
+    $("#td_desc_authz_group").hide();
     $("#AccessPathEditProviderType").val("off");
     $("#AccessPathEditProviderType").attr("disabled", "disabled");
   }
   else if ($("#AccessPathViewProviderType").val() == "svnauthfile")
   {
-    $("#tbl_visualsvn").hide(speed);
+    $("#tr_svn_authz_relative").hide(speed);
     $("#td_desc_authz").show();
-    $("#td_desc_authz_visualsvn").hide();
+    $("#td_desc_authz_group").hide();
     if($("#AccessPathEditProviderType").val() != "off")
       $("#AccessPathEditProviderType").val("svnauthfile");
     $("#AccessPathEditProviderType").removeAttr("disabled");
   }
-  else if ($("#AccessPathViewProviderType").val() == "visualsvn")
+  else if ($("#AccessPathViewProviderType").val() == "svnauthfileinrepo")
   {
-    $("#tbl_visualsvn").show(speed);
+    $("#tr_svn_authz_relative").show(speed);
     $("#td_desc_authz").hide();
-    $("#td_desc_authz_visualsvn").show();
+    $("#td_desc_authz_group").show();
     if($("#AccessPathEditProviderType").val() != "off")
-      $("#AccessPathEditProviderType").val("visualsvn");
+      $("#AccessPathEditProviderType").val("svnauthfileinrepo");
     $("#AccessPathEditProviderType").removeAttr("disabled");
   }
 }

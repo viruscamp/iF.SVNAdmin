@@ -61,8 +61,8 @@ $pRepositoryViewProviderType = get_request_var("RepositoryViewProviderType");
 $pRepositoryEditProviderType = get_request_var("RepositoryEditProviderType");
 $pAccessPathViewProviderType = get_request_var("AccessPathViewProviderType");
 $pAccessPathEditProviderType = get_request_var("AccessPathEditProviderType");
-$pAuthzVisualSVNSubversionReposRelativeAccessFile = get_request_var("AuthzVisualSVNSubversionReposRelativeAccessFile");
 $pSVNAuthFile = get_request_var("SVNAuthFile");
+$pAuthzSVNReposRelativeAccessFile = get_request_var("AuthzSVNReposRelativeAccessFile");
 $pSVNUserFile = get_request_var("SVNUserFile");
 $pApacheDirectoryListing = get_request_var("ApacheDirectoryListing");
 $pCustomDirectoryListing = get_request_var("CustomDirectoryListing");
@@ -111,8 +111,8 @@ if (check_request_var("save"))
 	$cfgEngine->setValue("Engine:Providers", "RepositoryEditProviderType", $pRepositoryEditProviderType);
 	$cfgEngine->setValue("Engine:Providers", "AccessPathViewProviderType", $pAccessPathViewProviderType);
 	$cfgEngine->setValue("Engine:Providers", "AccessPathEditProviderType", $pAccessPathEditProviderType);
-	$cfgEngine->setValue("VisualSVN","AuthzVisualSVNSubversionReposRelativeAccessFile", $pAuthzVisualSVNSubversionReposRelativeAccessFile);
 	$cfgEngine->setValue("Subversion", "SVNAuthFile", $pSVNAuthFile);
+	$cfgEngine->setValue("Subversion", "AuthzSVNReposRelativeAccessFile", $pAuthzSVNReposRelativeAccessFile);
 	$cfgEngine->setValue("Users:passwd", "SVNUserFile", $pSVNUserFile);
 	$cfgEngine->setValue("GUI", "ApacheDirectoryListing", $pApacheDirectoryListing);
 	$cfgEngine->setValue("GUI", "CustomDirectoryListing", $pCustomDirectoryListing);
@@ -480,6 +480,13 @@ $svnAuthFileEx = $cfgTpl->getValue("Subversion","SVNAuthFile");
 SetValue("SVNAuthFile", $svnAuthFile);
 SetValue("SVNAuthFileEx", $svnAuthFileEx);
 
+// AuthzSVNReposRelativeAccessFile
+$authzSVNReposRelativeAccessFile = $cfgEngine->getValue("Subversion","AuthzSVNReposRelativeAccessFile");
+$authzSVNReposRelativeAccessFileEx = $cfgTpl->getValue("Subversion","AuthzSVNReposRelativeAccessFile");
+SetValue("AuthzSVNReposRelativeAccessFile", $authzSVNReposRelativeAccessFile);
+SetValue("AuthzSVNReposRelativeAccessFileEx", $authzSVNReposRelativeAccessFileEx);
+SetValue("AuthzSVNGroupsFileEx", "groups.conf");
+
 // GUI.ApacheDirectoryListing
 $apacheDirectoryListing = $cfgEngine->getValue("GUI","ApacheDirectoryListing");
 $apacheDirectoryListingEx = $cfgTpl->getValue("GUI","ApacheDirectoryListing");
@@ -491,13 +498,6 @@ $customDirectoryListing = $cfgEngine->getValue("GUI","CustomDirectoryListing");
 $customDirectoryListingEx = $cfgTpl->getValue("GUI","CustomDirectoryListing");
 SetValue("CustomDirectoryListing", $customDirectoryListing);
 SetValue("CustomDirectoryListingEx", $customDirectoryListingEx);
-
-// AuthzVisualSVNSubversionReposRelativeAccessFile
-$authzVisualSVNSubversionReposRelativeAccessFile = $cfgEngine->getValue("VisualSVN","AuthzVisualSVNSubversionReposRelativeAccessFile");
-$authzVisualSVNSubversionReposRelativeAccessFileEx = $cfgTpl->getValue("VisualSVN","AuthzVisualSVNSubversionReposRelativeAccessFile");
-SetValue("AuthzVisualSVNSubversionReposRelativeAccessFile", $authzVisualSVNSubversionReposRelativeAccessFile);
-SetValue("AuthzVisualSVNSubversionReposRelativeAccessFileEx", $authzVisualSVNSubversionReposRelativeAccessFileEx);
-SetValue("AuthzVisualSVNSubversionGroupsFileEx", "groups.conf");
 
 // UserViewProviderType
 $userViewProviderTypes = array(/*"off",*/ "passwd", "digest", "ldap");
@@ -531,12 +531,12 @@ array_unshift($repositoryEditProviderTypes, $cfgEngine->getValue("Engine:Provide
 SetValue("repositoryEditProviderTypes", $repositoryEditProviderTypes);
 
 // AccessPathViewProviderType
-$accessPathViewProviderTypes = array("off", "svnauthfile", "visualsvn");
+$accessPathViewProviderTypes = array("off", "svnauthfile", "svnauthfileinrepo");
 array_unshift($accessPathViewProviderTypes, $cfgEngine->getValue("Engine:Providers","AccessPathViewProviderType"));
 SetValue("accessPathViewProviderTypes", $accessPathViewProviderTypes);
 
 // AccessPathEditProviderType
-$accessPathEditProviderTypes = array("off", "svnauthfile", "visualsvn");
+$accessPathEditProviderTypes = array("off", "svnauthfile", "svnauthfileinrepo");
 array_unshift($accessPathEditProviderTypes, $cfgEngine->getValue("Engine:Providers","AccessPathEditProviderType"));
 SetValue("accessPathEditProviderTypes", $accessPathEditProviderTypes);
 
