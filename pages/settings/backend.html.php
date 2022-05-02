@@ -77,13 +77,13 @@ $(document).ready(function(){
     <tr>
       <td id="td_desc_authz">
         <?php Translate("Subversion authorization file"); ?><br>
-        <?php Translate("<b>AuthzSVNAccessFile</b> in http.conf for mod_svn"); ?><br>
+        <?php Translate("<b>%0</b> in %1 for %2", array("AuthzSVNAccessFile", "http.conf", "mod_svn")); ?><br>
         <small><b><?php Translate("Example"); ?>:</b> <?php PrintStringValue("SVNAuthFileEx"); ?></small>
       </td>
       <td id="td_desc_authz_group">
         <?php Translate("Subversion authorization global group file"); ?><br>
-        <?php Translate("<b>AuthzSVNGroupsFile</b> in http.conf for mod_svn"); ?><br>
-        <?php Translate("<b>AuthzVisualSVNSubversionGroupsFile</b> in http.conf for visualsvn-server"); ?><br>
+        <?php Translate("<b>%0</b> in %1 for %2", array("AuthzSVNGroupsFile", "http.conf", "mod_svn")); ?><br>
+        <?php Translate("<b>%0</b> in %1 for %2", array("AuthzVisualSVNSubversionGroupsFile", "http.conf", "visualsvn-server")); ?><br>
         <small><b><?php Translate("Example"); ?>:</b> <?php PrintStringValue("AuthzSVNGroupsFileEx"); ?></small>
       </td>
       <td>
@@ -95,8 +95,8 @@ $(document).ready(function(){
     <tr id="tr_svn_authz_relative">
       <td>
         <?php Translate("Subversion authorization file in repository, relative to &lt;SVNParentPath&gt;/&lt;repo1&gt;/conf"); ?><br>
-        <?php Translate("<b>AuthzSVNReposRelativeAccessFile</b> in http.conf for mod_svn"); ?><br>
-        <?php Translate("<b>AuthzVisualSVNSubversionReposRelativeAccessFile</b> in http.conf for visualsvn-server"); ?><br>
+        <?php Translate("<b>%0</b> in %1 for %2", array("AuthzSVNReposRelativeAccessFile", "http.conf", "mod_svn")); ?><br>
+        <?php Translate("<b>%0</b> in %1 for %2", array("AuthzVisualSVNSubversionReposRelativeAccessFile", "http.conf", "visualsvn-server")); ?><br>
         <small><b><?php Translate("Example"); ?>:</b> <?php PrintStringValue("AuthzSVNReposRelativeAccessFileEx"); ?></small>
       </td>
       <td>
@@ -216,7 +216,10 @@ $(document).ready(function(){
   </thead>
   <tbody>
     <tr>
-      <td><?php Translate("User authentication file (SVNUserFile)"); ?><br><small><b><?php Translate("Example"); ?>:</b> <?php PrintStringValue("SVNUserFileEx"); ?></small></td>
+      <td>
+        <?php Translate("User authentication file (SVNUserFile)"); ?><br>
+        <?php Translate("<b>%0</b> in %1 for %2", array("AuthUserFile", "http.conf", "mod_svn,visualsvn-server")); ?><br>
+        <small><b><?php Translate("Example"); ?>:</b> <?php PrintStringValue("SVNUserFileEx"); ?></small></td>
       <td>
         <input type="text" name="SVNUserFile" id="SVNUserFile" value="<?php PrintStringValue("SVNUserFile"); ?>">
         <input type="button" id="SVNUserFileTest" value="<?php Translate("Test"); ?>">
@@ -270,7 +273,10 @@ $(document).ready(function(){
   </thead>
   <tbody>
     <tr>
-      <td><?php Translate("Parent directory of the repositories (SVNParentPath)"); ?><br><small><b><?php Translate("Example"); ?>:</b> <?php PrintStringValue("SVNParentPathEx"); ?></small></td>
+      <td>
+        <?php Translate("Parent directory of the repositories (SVNParentPath)"); ?><br>
+        <?php Translate("<b>%0</b> in %1 for %2", array("SVNParentPath", "http.conf", "mod_svn,visualsvn-server")); ?><br>
+        <small><b><?php Translate("Example"); ?>:</b> <?php PrintStringValue("SVNParentPathEx"); ?></small></td>
       <td>
         <input type="text" name="SVNParentPath" id="SVNParentPath" value="<?php PrintStringValue("SVNParentPath"); ?>">
         <input type="button" id="SVNParentPathTest" value="<?php Translate("Test"); ?>">

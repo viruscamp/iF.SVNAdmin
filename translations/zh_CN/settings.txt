@@ -1,16 +1,12 @@
 # All
 "Example","样例"
+"<b>%0</b> in %1 for %2","<b>%0</b> 位于 %1 中, 用于 %2"
 
 # Settings table
 "Subversion authorization","Subversion 授权"
 "Subversion authorization file","Subversion 授权文件"
-"<b>AuthzSVNAccessFile</b> in http.conf for mod_svn","<b>AuthzSVNAccessFile</b> 位于 http.conf 中, 用于 mod_svn"
 "Subversion authorization global group file","Subversion 全局用户组文件"
-"<b>AuthzSVNGroupsFile</b> in http.conf for mod_svn","<b>AuthzSVNGroupsFile</b> 位于 http.conf 中, 用于 mod_svn"
-"<b>AuthzVisualSVNSubversionGroupsFile</b> in http.conf for visualsvn-server","<b>AuthzVisualSVNSubversionGroupsFile</b> 位于 http.conf 中, 用于 visualsvn-server"
 "Subversion authorization file in repository, relative to &lt;SVNParentPath&gt;/&lt;repo1&gt;/conf","Subversion 分库授权文件, 路径相对于 &lt;SVNParentPath&gt;/&lt;repo1&gt;/conf"
-"<b>AuthzSVNReposRelativeAccessFile</b> in http.conf for mod_svn","<b>AuthzSVNReposRelativeAccessFile</b> 位于 http.conf 中, 用于 mod_svn"
-"<b>AuthzVisualSVNSubversionReposRelativeAccessFile</b> in http.conf for visualsvn-server","<b>AuthzVisualSVNSubversionReposRelativeAccessFile</b> 位于 http.conf 中, 用于 visualsvn-server"
 
 "Data providers","数据提供者"
 "User authentication","用户身份验证"
