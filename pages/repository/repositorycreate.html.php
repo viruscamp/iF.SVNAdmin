@@ -93,6 +93,8 @@ $(document).ready(function(){
         <p>Any file in data/repotmpl/[selected_template]/hooks/ will be copied to [new_repository]/hooks/ .</p>
         <p>Any file in data/repotmpl/[selected_template]/conf/ will be copied to [new_repository]/conf/ .</p>
         <p>Any file in data/repotmpl/[selected_template]/files/ will be added and committed to svn://[new_repository] .</p>
+        <p>The content in data/repotmpl/[selected_template]/props.conf will be used with "svn propset" .</p>
+        <p>The content in data/repotmpl/[selected_template]/props-recursive.conf will be used with "svn propset -R" .</p>
       </p>
     </div>
 

@@ -89,8 +89,8 @@ else {
 				if ($repotmpl->copyConf($repositoryTemplate, $r)) {
 					$engine->addMessage(tr("The repository %0 copy conf/ successfully", array($reponame)));
 				}
-				if ($repotmpl->addFiles($repositoryTemplate, $r)) {
-					$engine->addMessage(tr("The repository %0 add init files successfully", array($reponame)));
+				if ($repotmpl->initFilesAndProps($repositoryTemplate, $r)) {
+					$engine->addMessage(tr("The repository %0 add init files and set init props successfully", array($reponame)));
 				}
 			}
 		}

@@ -27,6 +27,6 @@ interface IRepositoryTemplateProvider extends IProvider
 
     public function copyConf($templateName, $objRepository);
 
-    public function addFiles($templateName, $objRepository);
+    public function initFilesAndProps($templateName, $objRepository);
 }
 ?>

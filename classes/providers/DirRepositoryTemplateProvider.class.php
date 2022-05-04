@@ -146,11 +146,32 @@ class DirRepositoryTemplateProvider implements \svnadmin\core\interfaces\IReposi
 		}
 	}
 
-	public function addFiles($templateName, $objRepository)
+	private function applyProps($propsfile, $additionArgs = "")
+	{
+		$svnexe = $this->_svnClient->getSvnExe();
+		$config = new \IF_Config($propsfile);
+		foreach($config->getSections() as $filename) {
+			$localfilename = $this->_svnClient->encode_local_path(".$filename");
+			foreach($config->getSectionKeys($filename) as $propname) {
+				$propval = $config->getValue($filename, $propname);
+				// svn propset $propname $propval $localfilename --force -q -R --depth infinity -q
+				//echo "\"$svnexe\" propset $propname $propval $localfilename --force -q $additionArgs<br/>";
+				$this->svn_exec("\"$svnexe\" propset $propname $propval $localfilename --force -q $additionArgs");
+			}
+		}
+	}
+
+	public function initFilesAndProps($templateName, $objRepository)
 	{
 		global $appEngine;
-		$src = $this->tmplroot."/".$templateName."/files";
-		if (!file_exists($src)) {
+		$files = $this->tmplroot."/".$templateName."/files";
+		$files_exists = file_exists($files);
+		$props_recursive = $this->tmplroot."/".$templateName."/props-recursive.conf";
+		$props_recursive_exists = file_exists($props_recursive);
+		$props = $this->tmplroot."/".$templateName."/props.conf";
+		$props_exists = file_exists($props);
+
+		if (!files_exists && !props_recursive_exists && !props_exists) {
 			return false;
 		}
 
@@ -171,10 +192,19 @@ class DirRepositoryTemplateProvider implements \svnadmin\core\interfaces\IReposi
 			// svn checkout [URL] . --force --depth infinity -q
 			$this->svn_exec("\"$svnexe\" checkout $repourl . --force --depth infinity -q");
 
-			custom_copy($src, $temppath);
+			if ($files_exists) {
+				custom_copy($files, $temppath);
+				// svn add . --force --auto-props --parents --depth infinity -q
+				$this->svn_exec("\"$svnexe\" add . --force --auto-props --parents --depth infinity -q", $output, $return_var);
+			}
 
-			// svn add . --force --auto-props --parents --depth infinity -q
-			$this->svn_exec("\"$svnexe\" add . --force --auto-props --parents --depth infinity -q", $output, $return_var);
+			if ($props_recursive_exists) {
+				$this->applyProps($props_recursive, "-R --depth infinity");
+			}
+
+			if ($props_exists) {
+				$this->applyProps($props);
+			}
 
 			// svn commit -m 'Adding a file'
 			$msg = escapeshellarg("add files from repository template: $templateName");
