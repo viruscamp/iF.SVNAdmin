@@ -142,7 +142,7 @@ class DirRepositoryTemplateProvider implements \svnadmin\core\interfaces\IReposi
 		exec($command, $output, $return_var);
 		if ($return_var != 0)
 		{
-			throw new \IF_SVNCommandExecutionException('Command='.$command.'; Return='.$return_var.'; Output='.$output.';');
+			throw new \IF_SVNCommandExecutionException('Command='.$command.'; Return='.$return_var.'; Output='.implode("<br/>", $output).';');
 		}
 	}
 
@@ -195,7 +195,7 @@ class DirRepositoryTemplateProvider implements \svnadmin\core\interfaces\IReposi
 			if ($files_exists) {
 				custom_copy($files, $temppath);
 				// svn add . --force --auto-props --parents --depth infinity -q
-				$this->svn_exec("\"$svnexe\" add . --force --auto-props --parents --depth infinity -q", $output, $return_var);
+				$this->svn_exec("\"$svnexe\" add . --force --auto-props --parents --depth infinity -q");
 			}
 
 			if ($props_recursive_exists) {
@@ -207,8 +207,10 @@ class DirRepositoryTemplateProvider implements \svnadmin\core\interfaces\IReposi
 			}
 
 			// svn commit -m 'Adding a file'
-			$msg = escapeshellarg("add files from repository template: $templateName");
-			$this->svn_exec("\"$svnexe\" commit -m $msg -q", $output, $return_var);
+			// TODO use escapeshellarg correctly, especially under windows, see https://www.php.net/manual/zh/function.escapeshellarg.php
+			$msg = "add files from repository template: $templateName";
+			// Attention don't use -m 'message one'
+			$this->svn_exec("\"$svnexe\" commit -m \"$msg\" -q");
 
 			chdir($cwd);
 			del_tree($temppath);

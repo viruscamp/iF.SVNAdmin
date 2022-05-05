@@ -83,14 +83,14 @@ else {
 		try {
 			if ($repositoryTemplate) {
 				$repotmpl = \svnadmin\providers\DirRepositoryTemplateProvider::getInstance();
+				if ($repotmpl->initFilesAndProps($repositoryTemplate, $r)) {
+					$engine->addMessage(tr("The repository %0 add init files and set init props successfully", array($reponame)));
+				}
 				if ($repotmpl->copyHooks($repositoryTemplate, $r)) {
 					$engine->addMessage(tr("The repository %0 copy hooks/ successfully", array($reponame)));
 				}
 				if ($repotmpl->copyConf($repositoryTemplate, $r)) {
 					$engine->addMessage(tr("The repository %0 copy conf/ successfully", array($reponame)));
-				}
-				if ($repotmpl->initFilesAndProps($repositoryTemplate, $r)) {
-					$engine->addMessage(tr("The repository %0 add init files and set init props successfully", array($reponame)));
 				}
 			}
 		}
